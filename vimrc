@@ -31,9 +31,17 @@ filetype plugin indent on    " required
 " :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
 "
 " see :h vundle for more details or wiki for FAQ
+
+
 " Put your non-Plugin stuff after this line
 
-set t_Co=256
+" Switch syntax highlighting on
 syntax on
-set background=dark
+
+" Show line numbers
+set number
+
+set t_Co=256
 colorscheme molokai
+set background=dark
+
