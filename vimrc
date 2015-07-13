@@ -18,6 +18,10 @@ Plugin 'gmarik/Vundle.vim'
 " Molokai Color Scheme
 Plugin 'tomasr/molokai'
 
+Plugin 'kien/ctrlp.vim'
+
+
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -44,4 +48,8 @@ set number
 set t_Co=256
 colorscheme molokai
 set background=dark
+
+" ctrlp.vim
+let g:ctrlp_working_path_mode = 'ra'
+
 
