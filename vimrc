@@ -17,6 +17,7 @@ Plugin 'pangloss/vim-javascript'
 Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'Raimondi/delimitMate'
 Plugin 'scrooloose/syntastic'
+Plugin 'mattn/emmet-vim'
 
 " Color Scheme
 Plugin 'tomasr/molokai'
