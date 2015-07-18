@@ -43,6 +43,32 @@ filetype plugin indent on    " required
 
 " Put your non-Plugin stuff after this line
 
+"Define the map leader key
+let mapleader = ","
+
+" Deactivate cursor keys
+nnoremap <up> <nop>
+nnoremap <down> <nop>
+nnoremap <left> <nop>
+nnoremap <right> <nop>
+inoremap <up> <nop>
+inoremap <down> <nop>
+inoremap <left> <nop>
+inoremap <right> <nop>
+nnoremap j gj
+nnoremap k gk
+
+"Hide mouse when typing
+set mousehide
+
+" Search configuration
+set incsearch
+set hlsearch
+set ignorecase
+set smartcase
+set showmatch
+set matchtime=2 " How many tenths of a second to blink
+
 " Switch syntax highlighting on
 syntax on
 
