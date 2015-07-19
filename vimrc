@@ -43,8 +43,13 @@ filetype plugin indent on    " required
 
 " Put your non-Plugin stuff after this line
 
-"Define the map leader key
+" Define the map leader key
 let mapleader = ","
+
+" Colors
+set t_Co=256
+colorscheme molokai
+set background=dark
 
 " Deactivate cursor keys
 nnoremap <up> <nop>
@@ -58,7 +63,7 @@ inoremap <right> <nop>
 nnoremap j gj
 nnoremap k gk
 
-"Hide mouse when typing
+" Hide mouse when typing
 set mousehide
 
 " Search configuration
@@ -74,10 +79,6 @@ syntax on
 
 " Show line numbers
 set number
-
-set t_Co=256
-colorscheme molokai
-set background=dark
 
 " ctrlp.vim
 let g:ctrlp_working_path_mode = 'ra'
