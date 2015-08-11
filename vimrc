@@ -97,6 +97,9 @@ set tabstop=2
 set expandtab
 set wrap
 
+" Automatically insert a matching brace
+inoremap { {<CR><BS>}<Esc>ko
+
 "Syntastic
 
 let g:syntastic_enable_signs=1
@@ -115,3 +118,4 @@ let g:syntastic_javascript_checkers = ['jshint']
 let g:user_emmet_leader_key='<tab>'
 let g:user_emmet_install_global = 0
 autocmd FileType html,css EmmetInstall
+
