@@ -99,6 +99,8 @@ set wrap
 
 " Automatically insert a matching brace
 inoremap { {<CR><BS>}<Esc>ko
+" Strip trailing whitespace
+nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 
 "Syntastic
 
