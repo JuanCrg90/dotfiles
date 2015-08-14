@@ -102,6 +102,9 @@ inoremap { {<CR><BS>}<Esc>ko
 " Strip trailing whitespace
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 
+" Show NERDTree
+nmap <leader>ne :NERDTree<cr>
+
 "Syntastic
 
 let g:syntastic_enable_signs=1
