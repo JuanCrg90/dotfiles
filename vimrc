@@ -19,6 +19,7 @@ Plugin 'Raimondi/delimitMate'
 Plugin 'scrooloose/syntastic'
 Plugin 'mattn/emmet-vim'
 Plugin 'edsono/vim-matchit'
+Plugin 'jiangmiao/auto-pairs'
 
 " Color Scheme
 Plugin 'tomasr/molokai'
@@ -98,7 +99,7 @@ set expandtab
 set wrap
 
 " Automatically insert a matching brace
-inoremap { {<CR><BS>}<Esc>ko
+" inoremap { {<CR><BS>}<Esc>ko
 " Strip trailing whitespace
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 
