@@ -31,6 +31,9 @@ Plugin 'scrooloose/nerdtree'
 " Git integration
 Plugin 'tpope/vim-fugitive'
 
+"Close buffer without close the window
+Plugin 'moll/vim-bbye'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -98,13 +101,15 @@ set tabstop=2
 set expandtab
 set wrap
 
-" Automatically insert a matching brace
-" inoremap { {<CR><BS>}<Esc>ko
 " Strip trailing whitespace
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 
 " Show NERDTree
 nmap <leader>ne :NERDTree<cr>
+
+" Close Buffer without close window moll/vim-bbye
+nnoremap <Leader>q :Bdelete<CR>
+
 
 "Syntastic
 
