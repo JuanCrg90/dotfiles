@@ -31,8 +31,11 @@ Plugin 'scrooloose/nerdtree'
 " Git integration
 Plugin 'tpope/vim-fugitive'
 
-"Close buffer without close the window
+" Close buffer without close the window
 Plugin 'moll/vim-bbye'
+
+Bundle 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
+
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
