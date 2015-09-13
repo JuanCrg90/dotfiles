@@ -1,0 +1,6 @@
+[user]
+	email = JuanCrg90@gmail.com
+	name = Juan Carlos Ruiz
+	username = JuanCrg90
+[core]
+	excludesfile = /home/garu/.gitignore
