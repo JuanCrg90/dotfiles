@@ -94,6 +94,9 @@ syntax on
 " Show line numbers
 set number
 
+" Paste toggle
+set pastetoggle=<F2>
+
 " ctrlp.vim
 let g:ctrlp_working_path_mode = 'ra'
 
