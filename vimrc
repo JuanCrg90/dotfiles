@@ -37,8 +37,8 @@ Plugin 'moll/vim-bbye'
 " JSDoc integration
 Plugin 'heavenshell/vim-jsdoc'
 
-" Plugin 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
-
+" Multiple Cursors
+Plugin 'terryma/vim-multiple-cursors'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
