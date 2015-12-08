@@ -5,13 +5,13 @@ filetype off                  " required
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
+" call vundle#begin('~/some/path/here')
 
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
 
 
-"Syntax and language improvements
+" Syntax and language improvements
 Plugin 'jelera/vim-javascript-syntax'
 Plugin 'pangloss/vim-javascript'
 Plugin 'nathanaelkane/vim-indent-guides'
@@ -24,7 +24,7 @@ Plugin 'jiangmiao/auto-pairs'
 " Color Scheme
 Plugin 'tomasr/molokai'
 
-" Navigation 
+" Navigation
 Plugin 'kien/ctrlp.vim'
 Plugin 'scrooloose/nerdtree'
 
@@ -34,14 +34,17 @@ Plugin 'tpope/vim-fugitive'
 " Close buffer without close the window
 Plugin 'moll/vim-bbye'
 
-Bundle 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
+" JSDoc integration
+Plugin 'heavenshell/vim-jsdoc'
+
+" Plugin 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
 
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
-"filetype plugin on
+" filetype plugin on
 "
 " Brief help
 " :PluginList       - lists configured plugins
@@ -94,7 +97,7 @@ set number
 " ctrlp.vim
 let g:ctrlp_working_path_mode = 'ra'
 
-"Indentation
+" Indentation
 set autoindent
 set smartindent
 set smarttab
@@ -114,22 +117,31 @@ nmap <leader>ne :NERDTree<cr>
 nnoremap <Leader>q :Bdelete<CR>
 
 
-"Syntastic
+" Syntastic
 
 let g:syntastic_enable_signs=1
 let g:syntastic_error_symbol='✗'
 let g:syntastic_warning_symbol='⚠'
 let g:syntastic_mode_map = { 'mode': 'active',
                            \ 'active_filetypes': [],
-                           \ 'passive_filetypes': ['scss','html'] }
+                           \ 'passive_filetypes': [] }
 let g:syntastic_check_on_wq = 0
 let g:syntastic_always_populate_loc_list=1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_javascript_checkers = ['jshint']
+let g:syntastic_scss_checkers = ['scss_lint']
 
-"Emmet
+
+" Emmet
 let g:user_emmet_leader_key='<tab>'
 let g:user_emmet_install_global = 0
 autocmd FileType html,css EmmetInstall
+
+" Poweline support
+python from powerline.vim import setup as powerline_setup
+python powerline_setup()
+python del powerline_setup
+
+set laststatus=2
 
