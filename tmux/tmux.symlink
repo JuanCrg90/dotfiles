@@ -27,14 +27,10 @@ bind L resize-pane -R 5
 
 # Mouse Integration
 set-option -g mouse on
-set -g mouse-resize-pane on
-set -g mouse-select-pane on
-set -g mouse-select-window on
 
 # Mouse wheel in tmux 2.1
 bind -n WheelUpPane   select-pane -t= \; copy-mode -e \; send-keys -M
 bind -n WheelDownPane select-pane -t= \;                 send-keys -M
-
 
 # Vi move in visual mode
 setw -g mode-keys vi
