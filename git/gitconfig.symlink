@@ -3,4 +3,9 @@
 	name = Juan Carlos Ruiz
 	username = JuanCrg90
 [core]
-	excludesfile = /home/garu/.gitignore
+	excludesfile = ~/.gitignore
+	editor = vim
+[color]
+	ui = true
+[merge]
+	tool = vimdiff
