@@ -1,0 +1,2 @@
+#! /bin/sh
+sudo openvpn --config ~/.JuanCrg90.ovpn
