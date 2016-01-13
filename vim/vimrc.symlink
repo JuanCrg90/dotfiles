@@ -21,6 +21,9 @@ Plugin 'mattn/emmet-vim'
 Plugin 'edsono/vim-matchit'
 Plugin 'jiangmiao/auto-pairs'
 
+" React Syntax highlighting and indenting Support
+Bundle 'mxw/vim-jsx'
+
 " Color Scheme
 Plugin 'tomasr/molokai'
 
