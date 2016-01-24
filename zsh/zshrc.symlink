@@ -60,6 +60,8 @@ plugins=(git archlinux jsontools git-flow meteor sudo npm sublime tmux)
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:~/.gem/ruby/2.3.0/bin:~/.local/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
+export VISUAL="vim"
+
 source $ZSH/oh-my-zsh.sh
 
 
