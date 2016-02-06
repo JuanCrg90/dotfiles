@@ -96,3 +96,9 @@ alias open="gnome-open"
 if [[ -r /usr/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh  ]]; then
   source /usr/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh
 fi
+
+# The next line updates PATH for the Google Cloud SDK.
+source '/home/garu/google-cloud-sdk/path.zsh.inc'
+
+# The next line enables shell command completion for gcloud.
+source '/home/garu/google-cloud-sdk/completion.zsh.inc'

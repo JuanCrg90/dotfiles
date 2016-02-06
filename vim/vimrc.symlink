@@ -43,6 +43,10 @@ Plugin 'heavenshell/vim-jsdoc'
 " Multiple Cursors
 Plugin 'terryma/vim-multiple-cursors'
 
+" Markdown preview
+" npm -g install instant-markdown-d
+Plugin 'suan/vim-instant-markdown'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
