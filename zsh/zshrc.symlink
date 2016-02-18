@@ -57,7 +57,7 @@ plugins=(git archlinux jsontools git-flow meteor sudo npm sublime tmux)
 
 # User configuration
 
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:~/.gem/ruby/2.3.0/bin:~/.local/bin"
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:$HOME/.gem/ruby/2.3.0/bin:$HOME/.local/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 export VISUAL="vim"
@@ -91,6 +91,7 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias la="ls -al"
 alias open="gnome-open"
+alias :q="exit"
 
 # Poweline configuration
 if [[ -r /usr/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh  ]]; then
