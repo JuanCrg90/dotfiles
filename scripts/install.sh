@@ -4,3 +4,4 @@
 mkdir -p ~/.local/bin
 #Copy the ovpn script to /bin
 ln -sf $(pwd)/ovpnConnect.symlink ~/.local/bin/ovpnConnect
+ln -sf $(pwd)/fixInotify.symlink ~/.local/bin/fixInotify
