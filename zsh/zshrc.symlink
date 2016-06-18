@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh installation.
-export ZSH=/home/garu/.oh-my-zsh
+export ZSH=/home/$(whoami)/.oh-my-zsh
 
 #Tmux plugin Autostart
 export ZSH_TMUX_AUTOSTART=true
@@ -57,7 +57,7 @@ plugins=(git archlinux jsontools git-flow meteor sudo npm sublime tmux)
 
 # User configuration
 
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:$HOME/.gem/ruby/2.3.0/bin:$HOME/.local/bin"
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:$HOME/.gem/ruby/2.3.0/bin:$HOME/.local/bin:/opt/android-studio/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 export VISUAL="vim"
@@ -94,12 +94,12 @@ alias open="gnome-open"
 alias :q="exit"
 
 # Poweline configuration
-if [[ -r /usr/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh  ]]; then
-  source /usr/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh
+if [[ -r $HOME/.local/lib/python2.7/site-packages  ]]; then
+  source $HOME/.local/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh
 fi
 
 # The next line updates PATH for the Google Cloud SDK.
-source '/home/garu/google-cloud-sdk/path.zsh.inc'
+#source '/home/$(whoami)/google-cloud-sdk/path.zsh.inc'
 
 # The next line enables shell command completion for gcloud.
-source '/home/garu/google-cloud-sdk/completion.zsh.inc'
+#source '/home/$(whoami)/google-cloud-sdk/completion.zsh.inc'

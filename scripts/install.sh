@@ -1,7 +1,7 @@
 #! /usr/bin/sh
 
 #Creating the local scripts directory
-mkdir -p $HOME/local/bin
+mkdir -p $HOME/.local/bin
 #Copy the ovpn script to $HOME/.local/bin
 ln -sf $(pwd)/ovpnConnect.symlink ~/.local/bin/ovpnConnect
 
