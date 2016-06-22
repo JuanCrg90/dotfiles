@@ -53,7 +53,7 @@ ZSH_THEME="agnoster"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 
-plugins=(git archlinux jsontools git-flow meteor sudo npm sublime tmux)
+plugins=(git archlinux jsontools git-flow meteor rails sudo npm vagrant sublime tmux)
 
 # User configuration
 
@@ -63,6 +63,7 @@ export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/u
 export npm_config_prefix=~/.node_modules
 export GOPATH=~/go
 
+export GEM_HOME=$(ruby -e 'print Gem.user_dir')
 
 export VISUAL="vim"
 
