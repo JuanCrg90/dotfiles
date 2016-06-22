@@ -57,8 +57,12 @@ plugins=(git archlinux jsontools git-flow meteor sudo npm sublime tmux)
 
 # User configuration
 
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:$HOME/.gem/ruby/2.3.0/bin:$HOME/.local/bin:/opt/android-studio/bin"
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:$(ruby -rubygems -e "puts Gem.user_dir")/bin:$HOME/.node_modules/bin:$HOME/.local/bin:/opt/android-studio/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
+
+export npm_config_prefix=~/.node_modules
+export GOPATH=~/go
+
 
 export VISUAL="vim"
 
