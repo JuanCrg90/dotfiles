@@ -47,4 +47,4 @@ bind C-c run "tmux save-buffer - | xclip -i -sel clipboard > /dev/null"
 bind C-v run "tmux set-buffer \"$(xclip -o -sel clipboard)\"; tmux paste-buffer"
 
 # Powerline icons integration
-source $HOME/.local/lib/python2.7/site-packages/powerline/bindings/tmux/powerline.conf
+source "$HOME/Library/Python/2.7/lib/python/site-packages/powerline/bindings/tmux/powerline.conf"
