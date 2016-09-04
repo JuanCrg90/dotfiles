@@ -67,9 +67,14 @@ filetype plugin indent on    " required
 " Define the map leader key
 let mapleader = ","
 
+" Swp file path
+set swapfile
+set dir=~/tmp
+
 " Colors
 set t_Co=256
 colorscheme molokai
+
 set background=dark
 
 " Deactivate cursor keys
@@ -141,6 +146,7 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_scss_checkers = ['scss_lint']
+let g:syntastic_html_checkers=['']
 
 
 " Emmet
