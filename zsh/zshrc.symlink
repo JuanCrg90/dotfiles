@@ -15,7 +15,7 @@ POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(status os_icon dir vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(load ram_joined battery)
 
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git jsontools git-flow rails npm vagrant sublime tmux)
+plugins=(git jsontools git-flow rails heroku npm vagrant sublime tmux)
 
 # User configuration
 # export PATH="/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
