@@ -20,6 +20,7 @@ Plugin 'scrooloose/syntastic'
 Plugin 'mattn/emmet-vim'
 Plugin 'edsono/vim-matchit'
 Plugin 'jiangmiao/auto-pairs'
+Plugin 'editorconfig/editorconfig-vim'
 
 " React Syntax highlighting and indenting Support
 Bundle 'mxw/vim-jsx'
@@ -90,6 +91,7 @@ nnoremap j gj
 nnoremap k gk
 
 " Hide mouse when typing
+set mouse=a  "meh u_u
 set mousehide
 
 " Search configuration
@@ -152,7 +154,14 @@ let g:syntastic_html_checkers=['']
 " Emmet
 let g:user_emmet_leader_key='<tab>'
 let g:user_emmet_install_global = 0
-autocmd FileType html,css EmmetInstall
+autocmd FileType html,css,scsss,eruby EmmetInstall
+
+" CSS Complete
+" https://github.com/csexton/snipmate.vim
+autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+autocmd BufNewFile,BufRead *.scss set ft=scss.css
+inoremap <leader>, <C-x><C-o>
+
 
 " Poweline support
 python from powerline.vim import setup as powerline_setup

@@ -20,6 +20,7 @@ plugins=(git jsontools git-flow rails heroku npm vagrant sublime tmux)
 # User configuration
 # export PATH="/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
 # export MANPATH="/usr/local/man:$MANPATH"
+export GOPATH=$HOME/work
 
 source $ZSH/oh-my-zsh.sh
 
