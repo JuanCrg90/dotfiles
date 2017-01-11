@@ -14,7 +14,7 @@ POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(status os_icon dir vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(load ram_joined battery)
 
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git jsontools git-flow rails heroku npm vagrant sublime tmux)
+plugins=(git archlinux jsontools git-flow rails heroku npm vagrant sublime tmux)
 
 # User configuration
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:$(ruby -rubygems -e "puts Gem.user_dir")/bin:$HOME/.node_modules/bin:$HOME/.local/bin:/opt/android-studio/bin"
