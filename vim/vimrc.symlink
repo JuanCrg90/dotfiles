@@ -18,7 +18,7 @@ Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'Raimondi/delimitMate'
 Plugin 'scrooloose/syntastic'
 Plugin 'mattn/emmet-vim'
-Plugin 'edsono/vim-matchit'
+Plugin 'geoffharcourt/vim-matchit'
 Plugin 'jiangmiao/auto-pairs'
 
 " React Syntax highlighting and indenting Support
