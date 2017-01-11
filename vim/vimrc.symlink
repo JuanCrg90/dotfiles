@@ -90,6 +90,7 @@ nnoremap j gj
 nnoremap k gk
 
 " Hide mouse when typing
+set mouse=a
 set mousehide
 
 " Search configuration
