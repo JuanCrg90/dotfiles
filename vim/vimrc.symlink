@@ -69,7 +69,7 @@ let mapleader = ","
 
 " Swp file path
 set swapfile
-set dir=~/tmp
+set dir=~/.tmp
 
 " Colors
 set t_Co=256
