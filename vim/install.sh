@@ -13,6 +13,12 @@ ln -sf $(pwd)/vimrc.symlink ~/.vimrc
 echo "[*] Create symlink for .vim directory"
 ln -sf $(pwd)/vim.symlink ~/.vim
 
+echo "[*] Create swap files directory"
+mkdir ~/.tmp
+
+echo "[*] Download python powerline"
+pip install powerline-status
+
 echo "[*] Download Vundle"
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
