@@ -1,7 +1,8 @@
 #!/usr/bin/sh
 
 echo "[*] Installing tmux"
-brew install tmux
+brew install tmux reattach-to-user-namespace
+
 
 echo "[*] download tmux-powrline plugin"
 # https://github.com/erikw/tmux-powerline
