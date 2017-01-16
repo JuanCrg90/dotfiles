@@ -24,7 +24,6 @@ bind J resize-pane -D 5
 bind K resize-pane -U 5
 bind L resize-pane -R 5
 
-
 # Mouse Integration
 set -g mouse on
 
@@ -61,7 +60,6 @@ bind C-v run "tmux set-buffer \"$(xclip -o -sel clipboard)\"; tmux paste-buffer"
 # Powerline icons integration
 set-option -g status on
 set-option -g status-interval 2
-#set-option -g status-utf8 on
 set-option -g status-justify "centre"
 set-option -g status-left-length 60
 set-option -g status-right-length 90
