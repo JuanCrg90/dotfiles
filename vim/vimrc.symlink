@@ -73,7 +73,7 @@ set swapfile
 set dir=~/.tmp
 
 " Clipboard
-set clipboard=unnamedplus
+set clipboard=unnamed
 
 
 " Colors
@@ -136,6 +136,10 @@ nmap <leader>ne :NERDTree<cr>
 
 " Close Buffer without close window moll/vim-bbye
 nnoremap <Leader>q :Bdelete<CR>
+
+" Nerd Tree
+let NERDTreeShowHidden=1
+let NERDTreeIgnore=['.DS_Store']
 
 
 " Syntastic
