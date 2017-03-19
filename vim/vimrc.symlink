@@ -10,7 +10,6 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
 
-
 " Syntax and language improvements
 Plugin 'jelera/vim-javascript-syntax'
 Plugin 'pangloss/vim-javascript'
@@ -116,7 +115,45 @@ set number
 set pastetoggle=<F2>
 
 " ctrlp.vim
+let g:ctrlp_dont_split = "NERD_tree_2"
 let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_jump_to_buffer = 0
+let g:ctrlp_match_window_reversed = 1
+let g:ctrlp_split_window = 0
+let g:ctrlp_max_height = 20
+let g:ctrlp_max_depth = 40
+let g:ctrlp_extensions = ['tag']
+let g:ctrlp_max_files=10000
+let g:cssColorVimDoNotMessMyUpdatetime = 1
+
+let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist)|(\.(swp|ico|git|svn))$'
+let s:ctrlp_fallback = 'ag %s
+      \ --nocolor --nogroup --depth 5
+      \ --hidden --follow --smart-case
+      \ --ignore .bazaar
+      \ --ignore .bzr
+      \ --ignore .git
+      \ --ignore .hg
+      \ --ignore .svn
+      \ --ignore .ccache
+      \ --ignore .DS_Store
+      \ --ignore .opt1
+      \ --ignore .pylint.d
+      \ --ignore .shell
+      \ --ignore .wine
+      \ --ignore .wine-pipelight
+      \ --ignore "**/*.pyc"
+      \ --ignore "**/*.class"
+      \ --ignore "**/*.o"
+      \ -g ""'
+
+let g:ctrlp_user_command = {
+    \ 'types': {
+      \ 1: ['.git', 'cd %s && git ls-files . --cached --others --exclude-standard'],
+      \ 2: ['.hg', 'hg --cwd %s locate -I .'],
+    \ },
+    \ 'fallback': s:ctrlp_fallback
+\ }
 
 " Indentation
 set autoindent
