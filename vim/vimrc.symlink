@@ -12,7 +12,8 @@ Plugin 'gmarik/Vundle.vim'
 
 " Syntax and language improvements
 Plugin 'jelera/vim-javascript-syntax'
-Plugin 'pangloss/vim-javascript'
+" Plugin 'pangloss/vim-javascript'
+Plugin 'othree/yajs.vim'
 Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'Raimondi/delimitMate'
 Plugin 'scrooloose/syntastic'
@@ -22,7 +23,7 @@ Plugin 'jiangmiao/auto-pairs'
 Plugin 'editorconfig/editorconfig-vim'
 
 " React Syntax highlighting and indenting Support
-Bundle 'mxw/vim-jsx'
+Plugin 'mxw/vim-jsx'
 
 " Color Scheme
 Plugin 'tomasr/molokai'
