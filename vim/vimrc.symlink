@@ -143,7 +143,6 @@ let NERDTreeIgnore=['.DS_Store']
 
 
 " Syntastic
-
 let g:syntastic_enable_signs=1
 let g:syntastic_error_symbol='✗'
 let g:syntastic_warning_symbol='⚠'
@@ -170,6 +169,10 @@ autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd BufNewFile,BufRead *.scss set ft=scss.css
 inoremap <leader>, <C-x><C-o>
 
+" Allow highlighting in js files
+let g:jsx_ext_required = 0
+
+"Powerline Support
 set rtp+=/usr/local/lib/python2.7/site-packages/powerline/bindings/vim
 set laststatus=2
 
