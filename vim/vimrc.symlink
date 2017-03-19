@@ -162,13 +162,13 @@ let g:syntastic_html_checkers=['']
 " Emmet
 let g:user_emmet_leader_key='<tab>'
 let g:user_emmet_install_global = 0
-autocmd FileType html,css EmmetInstall
+autocmd FileType html,css,javascript EmmetInstall
 
 " CSS Complete
 " https://github.com/csexton/snipmate.vim
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd BufNewFile,BufRead *.scss set ft=scss.css
-inoremap <leader>, <C-x><C-o>"
+inoremap <leader>, <C-x><C-o>
 
 set rtp+=/usr/local/lib/python2.7/site-packages/powerline/bindings/vim
 set laststatus=2
