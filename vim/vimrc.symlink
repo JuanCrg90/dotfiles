@@ -68,7 +68,7 @@ filetype plugin indent on    " required
 " Define the map leader key
 let mapleader = ","
 
-" Swp file path
+" Swap file path
 set swapfile
 set dir=~/.tmp
 
