@@ -31,6 +31,7 @@ Plugin 'tomasr/molokai'
 " Navigation
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'scrooloose/nerdtree'
+Plugin 'rking/ag.vim'
 
 " Git integration
 Plugin 'tpope/vim-fugitive'
@@ -174,7 +175,7 @@ nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 nmap <leader>ne :NERDTree<cr>
 
 " Close Buffer without close window moll/vim-bbye
-nnoremap <Leader>q :Bdelete<CR>
+nnoremap <leader>q :Bdelete<CR>
 
 " Nerd Tree
 let NERDTreeShowHidden=1
@@ -217,6 +218,9 @@ inoremap <leader>, <C-x><C-o>
 
 " Allow highlighting in js files
 let g:jsx_ext_required = 0
+
+" Ag configuration
+nnoremap <leader>/ :Ag
 
 "Powerline Support
 set rtp+=/usr/local/lib/python2.7/site-packages/powerline/bindings/vim
