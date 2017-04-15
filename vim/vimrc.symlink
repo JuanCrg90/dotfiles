@@ -197,6 +197,7 @@ let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_scss_checkers = ['scss_lint']
 let g:syntastic_html_checkers=['']
 
+nnoremap <leader>s :lclose<cr>
 
 " Emmet
 let g:user_emmet_leader_key='<tab>'
@@ -220,7 +221,7 @@ inoremap <leader>, <C-x><C-o>
 let g:jsx_ext_required = 0
 
 " Ag configuration
-nnoremap <leader>/ :Ag
+nnoremap <leader>/ :Ag 
 
 "Powerline Support
 set rtp+=/usr/local/lib/python2.7/site-packages/powerline/bindings/vim
