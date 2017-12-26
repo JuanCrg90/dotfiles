@@ -15,12 +15,17 @@ POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(status os_icon dir vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(load ram_joined battery)
 
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git jsontools git-flow rails heroku npm vagrant sublime tmux)
+plugins=(git jsontools git-flow rails heroku npm vagrant tmux docker-compose bundler kubectl)
 
 # User configuration
-# export PATH="/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
+# export PATH="/usr/bin:/bin:/usr/sbin:/sbin:$PATH:`yarn global bin`"
 # export MANPATH="/usr/local/man:$MANPATH"
+export PATH=${PATH}:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
 export GOPATH=$HOME/work
+export NVM_DIR="$HOME/.nvm"
+. "/usr/local/opt/nvm/nvm.sh"
+
+export ANDROID_HOME=/Users/$USER/Library/Android/sdk
 
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
@@ -46,3 +51,7 @@ source $ZSH/oh-my-zsh.sh
 alias zshconfig="vim ~/.zshrc"
 alias la="ls -al"
 alias :q="exit"
+
+alias bubc='brew upgrade && brew cleanup'
+alias pgstart='pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start'
+alias pgstop='pg_ctl -D /usr/local/var/postgres stop -s -m fast'
