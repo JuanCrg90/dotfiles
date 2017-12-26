@@ -6,8 +6,16 @@
 	excludesfile = ~/.gitignore
 	editor = vim
 [color]
-	ui = true
-[merge]
-	tool = vimdiff
+  branch = auto
+  diff = auto
+  interactive = auto
+  status = auto
+  ui = true
 [push]
 	default = simple
+[autosetup]
+  rebase = true
+[branch]
+  autosetuprebase = remote
+  autosetupmerge = true
+  mergeoptions = --no-commit --no-ff
