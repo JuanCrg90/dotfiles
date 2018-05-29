@@ -63,3 +63,6 @@ alias pgstop='pg_ctl -D /usr/local/var/postgres stop -s -m fast'
 
 alias gapan='git add --intent-to-add . && git add --patch'
 
+# brew link force # TODO Update this
+export PATH="/usr/local/opt/qt@5.5/bin:$PATH"
+export PATH="/usr/local/opt/imagemagick@6/bin:$PATH"
