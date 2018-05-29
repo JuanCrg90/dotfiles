@@ -176,6 +176,12 @@ nmap <leader>ne :NERDTree<cr>
 " Close Buffer without close window moll/vim-bbye
 nnoremap <leader>q :Bdelete<CR>
 
+" git commit messages
+autocmd Filetype gitcommit setlocal spell textwidth=72
+
+"highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+" match OverLength /\%70v.\+/
+
 " Nerd Tree
 let NERDTreeShowHidden=1
 let NERDTreeIgnore=['.DS_Store']
@@ -232,4 +238,3 @@ nnoremap <leader>/ :Ag
 "Powerline Support
 set rtp+=/usr/local/lib/python2.7/site-packages/powerline/bindings/vim
 set laststatus=2
-
