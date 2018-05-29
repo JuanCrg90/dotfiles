@@ -6,4 +6,4 @@ ln -sf $(pwd)/gitconfig.symlink ~/.gitconfig
 
 # create symlink for .gitignore
 echo -e "create symlink for .gitignore"
-ln -sf $(pwd)/gitignore.symlink ~/.gitignore
+ln -sf $(pwd)/gitignore.symlink ~/.gitignore_global
