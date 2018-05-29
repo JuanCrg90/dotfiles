@@ -3,7 +3,7 @@
 	name = Juan Carlos Ruiz
 	username = JuanCrg90
 [core]
-	excludesfile = ~/.gitignore
+  excludesfile = ~/.gitignore_global
 	editor = vim
 [color]
   branch = auto
