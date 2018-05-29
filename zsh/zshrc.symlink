@@ -13,6 +13,8 @@ POWERLEVEL9K_MODE='awesome-fontconfig'
 POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(status os_icon dir vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(load ram_joined battery)
+POWERLEVEL9K_STATUS_VERBOSE=false
+
 
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git jsontools git-flow rails heroku npm vagrant tmux docker-compose bundler kubectl)
