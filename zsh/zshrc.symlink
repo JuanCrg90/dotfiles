@@ -29,8 +29,10 @@ export NVM_DIR="$HOME/.nvm"
 
 export ANDROID_HOME=/Users/$USER/Library/Android/sdk
 
-if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+export BUNDLER_EDITOR='vim'
 
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+rbenv shell $(rbenv global)
 source $ZSH/oh-my-zsh.sh
 
 # You may need to manually set your language environment
