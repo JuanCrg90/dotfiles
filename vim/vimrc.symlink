@@ -170,9 +170,6 @@ set wrap
 " Strip trailing whitespace
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 
-" Show NERDTree
-nmap <leader>ne :NERDTree<cr>
-
 " Close Buffer without close window moll/vim-bbye
 nnoremap <leader>q :Bdelete<CR>
 
@@ -185,7 +182,10 @@ autocmd Filetype gitcommit setlocal spell textwidth=72
 " Nerd Tree
 let NERDTreeShowHidden=1
 let NERDTreeIgnore=['.DS_Store']
-
+" Show NERDTree
+nmap <leader>ne :NERDTree<cr>
+" Show file in NERDTree
+nmap <leader>nf :NERDTreeFind<cr>
 
 " Syntastic
 let g:syntastic_enable_signs=1
