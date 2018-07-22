@@ -27,6 +27,7 @@ Plugin 'mxw/vim-jsx'
 
 " Ruby Stuff
 Plugin 'thoughtbot/vim-rspec'
+Plugin 'tpope/vim-dispatch'
 
 " Color Scheme
 Plugin 'tomasr/molokai'
@@ -238,7 +239,7 @@ nnoremap <leader>/ :Ag
 :imap jj <Esc>
 
 " RSpec.vim mappings
-let g:rspec_command = "!bundle exec rspec --format documentation {spec}"
+let g:rspec_command = "Dispatch bundle exec rspec {spec}"
 map <Leader>t :call RunCurrentSpecFile()<CR>
 map <Leader>s :call RunNearestSpec()<CR>
 map <Leader>l :call RunLastSpec()<CR>
