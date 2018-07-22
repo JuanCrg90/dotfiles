@@ -73,6 +73,10 @@ filetype plugin indent on    " required
 " Define the map leader key
 let mapleader = ","
 
+" .vimrc editing made easy
+nmap <silent> <Leader>c :vs $MYVIMRC<CR>
+nmap <silent> <Leader>o :so $MYVIMRC<CR>
+
 " Swap file path
 set swapfile
 set dir=~/.tmp
