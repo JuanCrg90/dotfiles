@@ -17,7 +17,7 @@ POWERLEVEL9K_STATUS_VERBOSE=false
 
 
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git jsontools git-flow rails heroku npm vagrant tmux docker-compose bundler kubectl)
+plugins=(bundler docker-compose git heroku npm rails tmux vagrant)
 
 # User configuration
 # export PATH="/usr/bin:/bin:/usr/sbin:/sbin:$PATH:`yarn global bin`"
