@@ -1,4 +1,4 @@
-alias zshconfig="vim ~/.zshrc"
+alias zshconfig="vim ~/dotfiles/zsh"
 alias la="ls -al"
 alias :q="exit"
 alias speedtest="docker run --rm --net=host tianon/speedtest"
