@@ -42,8 +42,6 @@ alias :q="exit"
 alias speedtest="docker run --rm --net=host tianon/speedtest"
 
 alias bubc='brew upgrade && brew cleanup'
-alias pgstart='pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start'
-alias pgstop='pg_ctl -D /usr/local/var/postgres stop -s -m fast'
 
 alias gapan='git add --intent-to-add . && git add --patch'
 
