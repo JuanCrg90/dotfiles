@@ -25,6 +25,9 @@ Plugin 'editorconfig/editorconfig-vim'
 " React Syntax highlighting and indenting Support
 Plugin 'mxw/vim-jsx'
 
+" Typescript Syntax highlighting and indenting Support
+Plugin 'leafgarland/typescript-vim'
+
 " Ruby Stuff
 Plugin 'thoughtbot/vim-rspec'
 Plugin 'tpope/vim-dispatch'
