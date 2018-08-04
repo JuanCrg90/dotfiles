@@ -14,5 +14,8 @@ echo "Install powerlevel9k Theme"
 git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
 
 echo "create symlink for .zshrc"
-ln -sf $(pwd)/zshrc.symlink ~/.zshrc
+ln -sf $(pwd)/.zshrc ~/.zshrc
+
+echo "create symlink for .zshenv"
+ln -sf $(pwd)/.zshenv ~/.zshenv
 
