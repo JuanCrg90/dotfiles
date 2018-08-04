@@ -77,8 +77,8 @@ filetype plugin indent on    " required
 let mapleader = ","
 
 " .vimrc editing made easy
-nmap <silent> <Leader>c :vs $MYVIMRC<CR>
-nmap <silent> <Leader>o :so $MYVIMRC<CR>
+nnoremap <silent> <Leader>c :vs $MYVIMRC<CR>
+nnoremap <silent> <Leader>o :so $MYVIMRC<CR>
 
 " Swap file path
 set swapfile
@@ -194,9 +194,9 @@ autocmd Filetype gitcommit setlocal spell textwidth=72
 let NERDTreeShowHidden=1
 let NERDTreeIgnore=['.DS_Store']
 " Show NERDTree
-nmap <leader>ne :NERDTree<cr>
+nnoremap <leader>ne :NERDTree<cr>
 " Show file in NERDTree
-nmap <leader>nf :NERDTreeFind<cr>
+nnoremap <leader>nf :NERDTreeFind<cr>
 
 " Syntastic
 let g:syntastic_enable_signs=1
@@ -243,14 +243,14 @@ let g:jsx_ext_required = 0
 nnoremap <leader>/ :Ag 
 
 " map esc key to jj
-:imap jj <Esc>
+inoremap jj <Esc>
 
 " RSpec.vim mappings
 let g:rspec_command = "Dispatch bundle exec rspec {spec}"
-map <Leader>t :call RunCurrentSpecFile()<CR>
-map <Leader>s :call RunNearestSpec()<CR>
-map <Leader>l :call RunLastSpec()<CR>
-map <Leader>a :call RunAllSpecs()<CR>
+nnoremap <Leader>t :call RunCurrentSpecFile()<CR>
+nnoremap <Leader>s :call RunNearestSpec()<CR>
+nnoremap <Leader>l :call RunLastSpec()<CR>
+nnoremap <Leader>a :call RunAllSpecs()<CR>
 
 "Powerline Support
 set rtp+=/usr/local/lib/python2.7/site-packages/powerline/bindings/vim
