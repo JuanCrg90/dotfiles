@@ -4,7 +4,7 @@ RED='\033[0;31m'
 NC='\033[0m' # No Color]]'
 
 echo "[*] Install vim"
-brew install vim --with-python --with-ruby --with-perl
+brew install vim
 
 echo "[*] Create symlink for .vimrc"
 ln -sf $(pwd)/vimrc.symlink ~/.vimrc
