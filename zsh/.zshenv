@@ -18,3 +18,4 @@ source ~/dotfiles/zsh/nvm-config.sh
 # load rbenv
 source ~/dotfiles/zsh/rbenv-config.sh
 
+export POWERLINE="$(python3 -m site --user-site)/powerline/bindings/vim"
