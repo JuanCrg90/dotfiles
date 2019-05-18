@@ -82,6 +82,9 @@ let mapleader = ","
 nnoremap <silent> <Leader>c :vs $MYVIMRC<CR>
 nnoremap <silent> <Leader>o :so $MYVIMRC<CR>
 
+" Display all matching files when we tab complete
+set wildmenu
+
 " Swap file path
 set swapfile
 set dir=~/.tmp
