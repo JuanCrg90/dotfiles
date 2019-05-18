@@ -21,9 +21,14 @@ Plugin 'mattn/emmet-vim'
 Plugin 'geoffharcourt/vim-matchit'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'editorconfig/editorconfig-vim'
+Plugin 'heavenshell/vim-prettier'
 
 " React Syntax highlighting and indenting Support
 Plugin 'mxw/vim-jsx'
+Plugin 'alampros/vim-styled-jsx'
+
+" Vue Syntax highlighting and indenting Support
+Plugin 'posva/vim-vue'
 
 " Typescript Syntax highlighting and indenting Support
 Plugin 'leafgarland/typescript-vim'
@@ -58,6 +63,11 @@ Plugin 'suan/vim-instant-markdown'
 " Arduino
 Plugin 'stevearc/vim-arduino'
 
+" TODO lists
+Plugin 'aserebryakov/vim-todo-lists'
+
+" Elixir Stuff
+Plugin 'elixir-editors/vim-elixir'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
