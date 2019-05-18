@@ -8,14 +8,13 @@ export ZSH_TMUX_AUTOSTART=true
 
 export BUNDLER_EDITOR='vim'
 
-#load gcloud sdk
-source ~/dotfiles/zsh/gcloud-config.sh
-
 # load nvm
-source ~/dotfiles/zsh/nvm-config.sh
+# source ~/dotfiles/zsh/nvm-config.sh
 
 
 # load rbenv
-source ~/dotfiles/zsh/rbenv-config.sh
+# source ~/dotfiles/zsh/rbenv-config.sh
+
+export DB='postgres'
 
 export POWERLINE="$(python3 -m site --user-site)/powerline/bindings/vim"
