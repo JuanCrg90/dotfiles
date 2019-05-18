@@ -126,8 +126,14 @@ nnoremap <silent> <leader><space> :nohlsearch<CR>
 " Switch syntax highlighting on
 syntax on
 
-" Show line numbers
-set number
+" Automatic toggling between line number modes
+:set number relativenumber
+
+:augroup numbertoggle
+:  autocmd!
+:  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+:  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+:augroup END
 
 " Paste toggle
 set pastetoggle=<F2>
