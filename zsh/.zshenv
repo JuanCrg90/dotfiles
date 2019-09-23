@@ -6,6 +6,7 @@ export MANPATH="/usr/local/man:$MANPATH"
 #Tmux plugin Autostart
 export ZSH_TMUX_AUTOSTART=true
 
+export EDITOR='vim'
 export BUNDLER_EDITOR='vim'
 
 # load nvm
@@ -17,4 +18,6 @@ export BUNDLER_EDITOR='vim'
 
 export DB='postgres'
 
-export POWERLINE="$(python3 -m site --user-site)/powerline/bindings/vim"
+export DISABLE_YARN_INTEGRITY=true
+
+export POWERLINE="$(python3 -m site --user-site)/powerline/bindings/vim/plugins/powerline.vim"
