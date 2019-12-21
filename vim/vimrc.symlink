@@ -24,8 +24,11 @@ Plugin 'editorconfig/editorconfig-vim'
 Plugin 'heavenshell/vim-prettier'
 
 " React Syntax highlighting and indenting Support
-Plugin 'mxw/vim-jsx'
-Plugin 'alampros/vim-styled-jsx'
+Plugin 'MaxMEllon/vim-jsx-pretty'
+Plugin 'styled-components/vim-styled-components'
+
+" Graphql highlighting
+Plugin 'jparise/vim-graphql'
 
 " Vue Syntax highlighting and indenting Support
 Plugin 'posva/vim-vue'
@@ -236,14 +239,13 @@ let g:ale_lint_on_insert_leave = 0
 
 " Emmet
 let g:user_emmet_leader_key='<tab>'
-let g:user_emmet_install_global = 0
 let g:user_emmet_settings = {
 \  'javascript.jsx' : {
 \      'extends' : 'jsx',
 \  },
 \}
 
-autocmd FileType html,css,javascript.jsx EmmetInstall
+autocmd FileType html,css,js,javascript.jsx EmmetInstall
 
 " CSS Complete
 " https://github.com/csexton/snipmate.vim
@@ -272,6 +274,10 @@ nnoremap <Leader>t :call RunCurrentSpecFile()<CR>
 nnoremap <Leader>s :call RunNearestSpec()<CR>
 nnoremap <Leader>l :call RunLastSpec()<CR>
 nnoremap <Leader>a :call RunAllSpecs()<CR>
+
+
+" Graphql highlighting in prisma files
+au BufNewFile,BufRead *.prisma setfiletype graphql
 
 "Powerline Support
 set rtp+=$POWERLINE
