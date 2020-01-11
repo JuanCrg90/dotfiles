@@ -38,6 +38,7 @@ Plugin 'leafgarland/typescript-vim'
 
 " Ruby Stuff
 Plugin 'thoughtbot/vim-rspec'
+Plugin 'janko/vim-test'
 
 " Color Scheme
 Plugin 'tomasr/molokai'
@@ -275,6 +276,12 @@ nnoremap <Leader>s :call RunNearestSpec()<CR>
 nnoremap <Leader>l :call RunLastSpec()<CR>
 nnoremap <Leader>a :call RunAllSpecs()<CR>
 
+" these "Ctrl mappings" work well when Caps Lock is mapped to Ctrl
+nmap <silent> t<C-n> :TestNearest<CR>
+nmap <silent> t<C-f> :TestFile<CR>
+nmap <silent> t<C-s> :TestSuite<CR>
+nmap <silent> t<C-l> :TestLast<CR>
+nmap <silent> t<C-g> :TestVisit<CR>
 
 " Graphql highlighting in prisma files
 au BufNewFile,BufRead *.prisma setfiletype graphql
