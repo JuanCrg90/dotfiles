@@ -30,4 +30,6 @@ export PKG_CONFIG_PATH="/usr/local/opt/protobuf@3.7/lib/pkgconfig"
 
 # export DISABLE_YARN_INTEGRITY=true
 
-export POWERLINE="$(python3 -m site --user-site)/powerline/bindings/vim/plugins/powerline.vim"
+export LC_ALL=en_US.UTF-8
+
+export POWERLINE="$(python3 -m site --user-site)/powerline/bindings/vim/plugin/powerline.vim"

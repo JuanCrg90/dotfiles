@@ -188,3 +188,4 @@ nmap <silent> t<C-g> :TestVisit<CR>
 "Powerline Support
 set rtp+=$POWERLINE
 set laststatus=2
+source $POWERLINE
