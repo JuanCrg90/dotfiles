@@ -158,7 +158,7 @@ nnoremap <leader>nf :NERDTreeFind<cr>
 let &runtimepath.=',~/.vim/bundle/ale'
 let g:ale_linters = {
 \   'javascript': ['eslint', 'prettier'],
-\   'ruby': ['reek', 'standardrb', 'ruby'],
+\   'ruby': ['reek', 'rubocop', 'standardrb', 'ruby'],
 \   'css': ['stylelint'],
 \   'sass': ['stylelint'],
 \   'scss': ['stylelint'],
@@ -166,8 +166,6 @@ let g:ale_linters = {
 \   'typescript': ['tslint', 'tsserver']
 \}
 let g:ale_sign_column_always = 1
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_lint_on_insert_leave = 0
 
 " Emmet
 let g:user_emmet_leader_key='<tab>'
