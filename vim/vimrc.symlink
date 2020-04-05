@@ -12,39 +12,28 @@ Plugin 'gmarik/Vundle.vim'
 
 " Syntax and language improvements
 Plugin 'jelera/vim-javascript-syntax'
-" Plugin 'pangloss/vim-javascript'
 Plugin 'othree/yajs.vim'
 Plugin 'nathanaelkane/vim-indent-guides'
-Plugin 'Raimondi/delimitMate'
 Plugin 'dense-analysis/ale'
 Plugin 'mattn/emmet-vim'
 Plugin 'geoffharcourt/vim-matchit'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'editorconfig/editorconfig-vim'
-Plugin 'heavenshell/vim-prettier'
 
 " React Syntax highlighting and indenting Support
 Plugin 'MaxMEllon/vim-jsx-pretty'
 Plugin 'styled-components/vim-styled-components'
 
-" Graphql highlighting
-Plugin 'jparise/vim-graphql'
-
-" Vue Syntax highlighting and indenting Support
-Plugin 'posva/vim-vue'
-
-" Typescript Syntax highlighting and indenting Support
-Plugin 'leafgarland/typescript-vim'
-
 " Ruby Stuff
 Plugin 'thoughtbot/vim-rspec'
 Plugin 'janko/vim-test'
+Plugin 'benmills/vimux'
 
 " Color Scheme
 Plugin 'tomasr/molokai'
 
 " Navigation
-Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'junegunn/fzf'
 Plugin 'scrooloose/nerdtree'
 Plugin 'rking/ag.vim'
 
@@ -54,24 +43,6 @@ Plugin 'tpope/vim-fugitive'
 " Close buffer without close the window
 Plugin 'moll/vim-bbye'
 
-" JSDoc integration
-Plugin 'heavenshell/vim-jsdoc'
-
-" Multiple Cursors
-Plugin 'terryma/vim-multiple-cursors'
-
-" Markdown preview
-" npm -g install instant-markdown-d
-Plugin 'suan/vim-instant-markdown'
-
-" Arduino
-Plugin 'stevearc/vim-arduino'
-
-" TODO lists
-Plugin 'aserebryakov/vim-todo-lists'
-
-" Elixir Stuff
-Plugin 'elixir-editors/vim-elixir'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -152,46 +123,9 @@ syntax on
 " Paste toggle
 set pastetoggle=<F2>
 
-" ctrlp.vim
-let g:ctrlp_dont_split = "NERD_tree_2"
-let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_jump_to_buffer = 0
-let g:ctrlp_match_window_reversed = 1
-let g:ctrlp_split_window = 0
-let g:ctrlp_max_height = 20
-let g:ctrlp_max_depth = 40
-let g:ctrlp_extensions = ['tag']
-let g:ctrlp_max_files=10000
-let g:cssColorVimDoNotMessMyUpdatetime = 1
-
-let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist)|(\.(swp|ico|git|svn))$'
-let s:ctrlp_fallback = 'ag %s
-      \ --nocolor --nogroup --depth 5
-      \ --hidden --follow --smart-case
-      \ --ignore .bazaar
-      \ --ignore .bzr
-      \ --ignore .git
-      \ --ignore .hg
-      \ --ignore .svn
-      \ --ignore .ccache
-      \ --ignore .DS_Store
-      \ --ignore .opt1
-      \ --ignore .pylint.d
-      \ --ignore .shell
-      \ --ignore .wine
-      \ --ignore .wine-pipelight
-      \ --ignore "**/*.pyc"
-      \ --ignore "**/*.class"
-      \ --ignore "**/*.o"
-      \ -g ""'
-
-let g:ctrlp_user_command = {
-    \ 'types': {
-      \ 1: ['.git', 'cd %s && git ls-files . --cached --others --exclude-standard'],
-      \ 2: ['.hg', 'hg --cwd %s locate -I .'],
-    \ },
-    \ 'fallback': s:ctrlp_fallback
-\ }
+" Add fuzzy finder to runtimepath
+set rtp+=/usr/local/opt/fzf
+nnoremap <silent> <C-p> :FZF<CR>
 
 " Indentation
 set autoindent
@@ -211,9 +145,6 @@ nnoremap <leader>q :Bdelete<CR>
 
 " git commit messages
 autocmd Filetype gitcommit setlocal spell textwidth=72
-
-"highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-" match OverLength /\%70v.\+/
 
 " Nerd Tree
 let NERDTreeShowHidden=1
@@ -277,14 +208,13 @@ nnoremap <Leader>l :call RunLastSpec()<CR>
 nnoremap <Leader>a :call RunAllSpecs()<CR>
 
 " these "Ctrl mappings" work well when Caps Lock is mapped to Ctrl
+"
+let test#strategy = "vimux"
 nmap <silent> t<C-n> :TestNearest<CR>
 nmap <silent> t<C-f> :TestFile<CR>
 nmap <silent> t<C-s> :TestSuite<CR>
 nmap <silent> t<C-l> :TestLast<CR>
 nmap <silent> t<C-g> :TestVisit<CR>
-
-" Graphql highlighting in prisma files
-au BufNewFile,BufRead *.prisma setfiletype graphql
 
 "Powerline Support
 set rtp+=$POWERLINE
