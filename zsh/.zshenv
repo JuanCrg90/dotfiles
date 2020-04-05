@@ -16,8 +16,8 @@ export PATH="/usr/local/opt/protobuf@3.7/bin:$PATH"
 export PKG_CONFIG_PATH="/usr/local/opt/protobuf@3.7/lib/pkgconfig"
 
 
- export LDFLAGS="-L/usr/local/opt/openssl/lib"
- export CPPFLAGS="-I/usr/local/opt/openssl/include"
+export LDFLAGS="-L/usr/local/opt/openssl/lib"
+export CPPFLAGS="-I/usr/local/opt/openssl/include"
 
 # load nvm
 # source ~/dotfiles/zsh/nvm-config.sh
