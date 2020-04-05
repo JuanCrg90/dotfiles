@@ -102,9 +102,6 @@ syntax on
 :  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
 :augroup END
 
-" Paste toggle
-set pastetoggle=<F2>
-
 " Add fuzzy finder to runtimepath
 set rtp+=/usr/local/opt/fzf
 nnoremap <silent> <C-p> :FZF<CR>
