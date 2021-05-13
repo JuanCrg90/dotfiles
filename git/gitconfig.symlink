@@ -19,3 +19,7 @@
   autosetuprebase = remote
   autosetupmerge = true
   mergeoptions = --no-commit --no-ff
+[fetch]
+  prune = true
+[alias]
+  recent = branch --sort=-committerdate --format=\"%(committerdate:relative)%09%(refname:short)\"
