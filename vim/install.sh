@@ -17,7 +17,7 @@ echo "[*] Create swap files directory"
 mkdir ~/.tmp
 
 echo "[*] Download python powerline"
-pip install powerline-status
+pip3 install --user powerline-status
 
 echo "[*] Download Vundle"
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
