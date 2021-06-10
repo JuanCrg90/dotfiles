@@ -1,45 +1,45 @@
 set nocompatible
 filetype off
 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+call plug#begin('~/.vim/plugged')
 
-Plugin 'gmarik/Vundle.vim'
+Plug 'gmarik/Vundle.vim'
 
 " Syntax and language improvements
-Plugin 'jelera/vim-javascript-syntax'
-Plugin 'othree/yajs.vim'
-Plugin 'nathanaelkane/vim-indent-guides'
-Plugin 'dense-analysis/ale'
-Plugin 'mattn/emmet-vim'
-Plugin 'geoffharcourt/vim-matchit'
-Plugin 'jiangmiao/auto-pairs'
-Plugin 'editorconfig/editorconfig-vim'
+Plug 'jelera/vim-javascript-syntax'
+Plug 'othree/yajs.vim'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'dense-analysis/ale'
+Plug 'mattn/emmet-vim'
+Plug 'geoffharcourt/vim-matchit'
+Plug 'jiangmiao/auto-pairs'
+Plug 'editorconfig/editorconfig-vim'
 
 " React Syntax highlighting and indenting Support
-Plugin 'MaxMEllon/vim-jsx-pretty'
-Plugin 'styled-components/vim-styled-components'
+Plug 'MaxMEllon/vim-jsx-pretty'
+Plug 'styled-components/vim-styled-components'
 
 " Ruby Stuff
-Plugin 'janko/vim-test'
-Plugin 'benmills/vimux'
+Plug 'janko/vim-test'
+Plug 'benmills/vimux'
 
 " Color Scheme
-Plugin 'tomasr/molokai'
+Plug 'tomasr/molokai'
 
 " Navigation
-Plugin 'junegunn/fzf'
-Plugin 'scrooloose/nerdtree'
-Plugin 'rking/ag.vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'scrooloose/nerdtree'
+Plug 'rking/ag.vim'
 
 " Git integration
-Plugin 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
 
 " Close buffer without close the window
-Plugin 'moll/vim-bbye'
+Plug 'moll/vim-bbye'
 
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
+Plug 'mrdotb/vim-tailwindcss'
+" All of your Plugs must be added before the following line
+call plug#end()
 filetype plugin indent on    " required
 
 " Define the map leader key
@@ -184,6 +184,13 @@ nmap <silent> t<C-f> :TestFile<CR>
 nmap <silent> t<C-s> :TestSuite<CR>
 nmap <silent> t<C-l> :TestLast<CR>
 nmap <silent> t<C-g> :TestVisit<CR>
+
+" Set the completefunc you can do this per file basis or with a mapping
+set completefunc=tailwind#complete
+" The mapping I use
+nnoremap <leader>tt :set completefunc=tailwind#complete<cr>
+" Add this autocmd to your vimrc to close the preview window after the completion is done
+autocmd CompleteDone * pclose
 
 "Powerline Support
 set rtp+=$POWERLINE
