@@ -11,6 +11,8 @@
   interactive = auto
   status = auto
   ui = true
+[pull]
+	rebase = true
 [push]
 	default = simple
 [autosetup]
