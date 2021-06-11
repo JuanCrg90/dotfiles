@@ -1,0 +1,3 @@
+[submodule "iterm/iterm2-monokai-pro"]
+	path = iterm/iterm2-monokai-pro
+	url = git@github.com:ayatmaulana/iterm2-monokai-pro.git
