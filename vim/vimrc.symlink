@@ -24,7 +24,7 @@ Plug 'janko/vim-test'
 Plug 'benmills/vimux'
 
 " Color Scheme
-Plug 'tomasr/molokai'
+Plug 'crusoexia/vim-monokai'
 
 " Navigation
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -59,11 +59,14 @@ set dir=~/.tmp
 " Clipboard
 set clipboard=unnamed
 
-" Colors
-set t_Co=256
-colorscheme molokai
+" set Vim-specific sequences for RGB colors
+set termguicolors
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
 set background=dark
+syntax on
+colorscheme monokai
 
 " Deactivate cursor keys
 nnoremap <up> <nop>
@@ -89,9 +92,6 @@ set smartcase
 set showmatch
 set matchtime=2 " How many tenths of a second to blink
 nnoremap <silent> <leader><space> :nohlsearch<CR>
-
-" Switch syntax highlighting on
-syntax on
 
 " Automatic toggling between line number modes
 :set number relativenumber
