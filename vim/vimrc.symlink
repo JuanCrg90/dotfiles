@@ -69,14 +69,14 @@ syntax on
 colorscheme monokai
 
 " Deactivate cursor keys
-nnoremap <up> <nop>
-nnoremap <down> <nop>
-nnoremap <left> <nop>
-nnoremap <right> <nop>
-inoremap <up> <nop>
-inoremap <down> <nop>
-inoremap <left> <nop>
-inoremap <right> <nop>
+" nnoremap <up> <nop>
+" nnoremap <down> <nop>
+" nnoremap <left> <nop>
+" nnoremap <right> <nop>
+" inoremap <up> <nop>
+" inoremap <down> <nop>
+" inoremap <left> <nop>
+" inoremap <right> <nop>
 nnoremap j gj
 nnoremap k gk
 
@@ -119,6 +119,8 @@ set wrap
 " Strip trailing whitespace
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 
+autocmd BufWritePre * %s/\s\+$//e
+
 " Close Buffer without close window moll/vim-bbye
 nnoremap <leader>q :Bdelete<CR>
 
@@ -137,7 +139,7 @@ nnoremap <leader>nf :NERDTreeFind<cr>
 let &runtimepath.=',~/.vim/bundle/ale'
 let g:ale_linters = {
 \   'javascript': ['eslint', 'prettier'],
-\   'ruby': ['reek', 'rubocop', 'standardrb', 'ruby'],
+\   'ruby': ['reek', 'rubocop', 'ruby'],
 \   'css': ['stylelint'],
 \   'sass': ['stylelint'],
 \   'scss': ['stylelint'],
@@ -166,7 +168,7 @@ inoremap <leader>, <C-x><C-o>
 let g:jsx_ext_required = 0
 
 " Ag configuration
-nnoremap <leader>/ :Ag 
+nnoremap <leader>/ :Ag
 
 " map esc key to jj
 inoremap jj <Esc>
@@ -184,6 +186,9 @@ nmap <silent> t<C-f> :TestFile<CR>
 nmap <silent> t<C-s> :TestSuite<CR>
 nmap <silent> t<C-l> :TestLast<CR>
 nmap <silent> t<C-g> :TestVisit<CR>
+
+nnoremap <leader>d obinding.pry
+nnoremap <leader>r :silent !touch tmp/restart.txt
 
 " Set the completefunc you can do this per file basis or with a mapping
 set completefunc=tailwind#complete
