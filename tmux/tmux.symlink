@@ -67,3 +67,13 @@ set-option -g status-right-length 90
 
 set-option -g status-left "#($HOME/dotfiles/tmux/tmux-powerline/powerline.sh left)"
 set-option -g status-right "#($HOME/dotfiles/tmux/tmux-powerline/powerline.sh right)"
+
+# List of plugins
+set -g @plugin 'tmux-plugins/tpm'
+
+# Terminal type configuration
+set -g default-terminal "screen-256color"
+set -ga terminal-overrides ",xterm-256color:Tc"
+
+# Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
+run '~/.tmux/plugins/tpm/tpm'

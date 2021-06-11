@@ -8,6 +8,9 @@ echo "[*] download tmux-powrline plugin"
 # https://github.com/erikw/tmux-powerline
 git clone https://github.com/erikw/tmux-powerline.git
 
+echo "[*] download tpm"
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
 echo "[*] create symlink for my tmux-powerline theme"
 rm $HOME/dotfiles/tmux/tmux-powerline/themes/default.sh
 ln -sf $(pwd)/mytheme.symlink $HOME/dotfiles/tmux/tmux-powerline/themes/default.sh
