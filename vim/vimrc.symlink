@@ -37,6 +37,8 @@ Plug 'tpope/vim-fugitive'
 " Close buffer without close the window
 Plug 'moll/vim-bbye'
 
+Plug 'hashivim/vim-terraform'
+
 Plug 'mrdotb/vim-tailwindcss'
 " All of your Plugs must be added before the following line
 call plug#end()
@@ -136,7 +138,6 @@ nnoremap <leader>ne :NERDTree<cr>
 nnoremap <leader>nf :NERDTreeFind<cr>
 
 " Ale
-let &runtimepath.=',~/.vim/bundle/ale'
 let g:ale_linters = {
 \   'javascript': ['eslint', 'prettier'],
 \   'ruby': ['reek', 'rubocop', 'ruby'],
