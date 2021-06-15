@@ -3,8 +3,6 @@ filetype off
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'gmarik/Vundle.vim'
-
 " Syntax and language improvements
 Plug 'jelera/vim-javascript-syntax'
 Plug 'othree/yajs.vim'
