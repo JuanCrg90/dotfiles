@@ -18,4 +18,5 @@ export CPPFLAGS="-I/usr/local/opt/openssl/include"
 
 export LC_ALL=en_US.UTF-8
 
-export POWERLINE="$(python3 -m site --user-site)/powerline/bindings/vim/plugin/powerline.vim"
+#export POWERLINE="$(python3 -m site --user-site)/powerline/bindings/vim/plugin/powerline.vim"
+export POWERLINE="/Users/juanc.ruiz/Library/Python/3.8/lib/python/site-packages/powerline/bindings/vim/plugin/powerline.vim"

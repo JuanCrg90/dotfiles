@@ -19,9 +19,10 @@ mkdir ~/.tmp
 echo "[*] Download python powerline"
 pip3 install --user powerline-status
 
-echo "[*] Download Vundle"
-git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+echo "[*] Download Plug"
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-echo "[*] Done. please enter to vim and run ${RED}:PluginInstall${NC}"
+echo "[*] Done. please enter to vim and run ${RED}:PlugInstall${NC}"
 
 
