@@ -11,3 +11,5 @@ alias mysqlpm='mysql -u some_new_user property_manager_development -p'
 alias be='bundle exec'
 alias ber='bundle exec rails'
 alias bert='bundle exec rails test'
+
+alias vim="nvim"
