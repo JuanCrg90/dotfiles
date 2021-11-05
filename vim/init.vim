@@ -24,6 +24,9 @@ Plug 'benmills/vimux'
 " Color Scheme
 Plug 'crusoexia/vim-monokai'
 
+" Lualine
+Plug 'nvim-lualine/lualine.nvim'
+
 " Navigation
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'scrooloose/nerdtree'
@@ -196,9 +199,6 @@ nnoremap <leader>tt :set completefunc=tailwind#complete<cr>
 " Add this autocmd to your vimrc to close the preview window after the completion is done
 autocmd CompleteDone * pclose
 
-"Powerline Support (Not supported on neovim)
-" https://www.reddit.com/r/neovim/comments/nlgva2/neovim_and_powerline/
-" https://github.com/powerline/powerline/issues/1287
-" set rtp+=$POWERLINE
-" set laststatus=2
-" source $POWERLINE
+lua << END
+require'lualine'.setup()
+END
