@@ -22,7 +22,7 @@ Plug 'janko/vim-test'
 Plug 'benmills/vimux'
 
 " Color Scheme
-Plug 'crusoexia/vim-monokai'
+Plug 'tanvirtin/monokai.nvim'
 
 " Lualine
 Plug 'nvim-lualine/lualine.nvim'
@@ -67,7 +67,6 @@ set termguicolors
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
-set background=dark
 syntax on
 colorscheme monokai
 
