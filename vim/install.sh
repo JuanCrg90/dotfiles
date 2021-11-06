@@ -7,7 +7,7 @@ echo "[*] Install neovim"
 brew install neovim
 
 echo "[*] Create nvim config directory"
-mkdir -p ~/config/.init.vim
+mkdir -p ~/.config/nvim
 
 echo "[*] Create symlink for .vimrc"
 ln -sf $(pwd)/init.vim ~/.config/nvim/init.vim
