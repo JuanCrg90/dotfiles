@@ -62,6 +62,12 @@ set dir=~/.tmp
 " Clipboard
 set clipboard=unnamed
 
+" Copy filename to clipboard
+nmap ,cs :let @*=expand("%")<CR>
+
+" Copy full path to clipboard
+nmap ,cl :let @*=expand("%:p")<CR>
+
 " set Vim-specific sequences for RGB colors
 set termguicolors
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
