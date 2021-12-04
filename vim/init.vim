@@ -23,6 +23,7 @@ Plug 'benmills/vimux'
 
 " Color Scheme
 Plug 'tanvirtin/monokai.nvim'
+Plug 'patstockwell/vim-monokai-tasty'
 
 " Lualine
 Plug 'nvim-lualine/lualine.nvim'
@@ -74,7 +75,10 @@ let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
 syntax on
-colorscheme monokai
+"colorscheme monokai
+
+let g:vim_monokai_tasty_italic = 1
+colorscheme vim-monokai-tasty
 
 " Deactivate cursor keys
 " nnoremap <up> <nop>
