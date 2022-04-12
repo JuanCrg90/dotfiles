@@ -17,3 +17,5 @@ ln -sf $(pwd)/mytheme.symlink $HOME/dotfiles/tmux/tmux-powerline/themes/default.
 
 echo "[*] create symlink for .tmux.conf"
 ln -sf $(pwd)/tmux.symlink $HOME/.tmux.conf
+
+echo "[*] Tmux installed, restart your terminal and run CTRL+A + I"
