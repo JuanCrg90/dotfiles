@@ -30,17 +30,41 @@ lvim.builtin.which_key.mappings["f"] = { "<cmd>Telescope git_files<CR>", "Find F
 -- Map Ctrl + P to open Telescope find files
 lvim.keys.normal_mode["<C-p>"] = ":Telescope git_files<CR>"
 
--- vim-test configuration
-vim.g["test#strategy"] = "neovim"
-lvim.keys.normal_mode["t<C-n>"] = ":TestNearest<CR>"
-lvim.keys.normal_mode["t<C-f>"] = ":TestFile<CR>"
-lvim.keys.normal_mode["t<C-s>"] = ":TestSuite<CR>"
-lvim.keys.normal_mode["t<C-l>"] = ":TestLast<CR>"
-lvim.keys.normal_mode["t<C-g>"] = ":TestVisit<CR>"
+-- Neotest key mappings
+lvim.keys.normal_mode["t<C-n>"] = ":lua require('neotest').run.run()<CR>"
+lvim.keys.normal_mode["t<C-f>"] = ":lua require('neotest').run.run(vim.fn.expand('%'))<CR>"
+lvim.keys.normal_mode["t<C-s>"] = ":lua require('neotest').run.run({suite = true})<CR>"
+lvim.keys.normal_mode["t<C-l>"] = ":lua require('neotest').run.run_last()<CR>"
+lvim.keys.normal_mode["t<C-g>"] = ":lua require('neotest').run.run_last({strategy = 'neotest-strategy'})<CR>"
+lvim.keys.normal_mode["<leader>ts"] = ":lua require('neotest').summary.toggle()<CR>"
+lvim.keys.normal_mode["<leader>to"] = ":lua require('neotest').output.open()<CR>"
 
 lvim.plugins = {
   { "EdenEast/nightfox.nvim" },
-  { "janko/vim-test" },
+  {
+    "nvim-neotest/neotest",
+    dependencies = {
+      "zidhuss/neotest-minitest",
+      "olimorris/neotest-rspec",
+      'nvim-neotest/neotest-jest',
+    },
+    config = function()
+      require("neotest").setup({
+        adapters = {
+          require("neotest-rspec"),
+          require("neotest-minitest"),
+          require('neotest-jest')({
+            jestCommand = "npm test --",
+            jestConfigFile = "jest.config.js",
+            env = { CI = true },
+            cwd = function(path)
+              return vim.fn.getcwd()
+            end,
+          })
+        },
+      })
+    end
+  },
  {
     "zbirenbaum/copilot.lua",
     event = { "VimEnter" },
