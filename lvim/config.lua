@@ -32,6 +32,7 @@ lvim.keys.normal_mode["t<C-s>"] = ":TestSuite<CR>"
 lvim.keys.normal_mode["t<C-l>"] = ":TestLast<CR>"
 lvim.keys.normal_mode["t<C-g>"] = ":TestVisit<CR>"
 
+
 lvim.plugins = {
   { "EdenEast/nightfox.nvim" },
   { "janko/vim-test" },
@@ -41,33 +42,38 @@ lvim.plugins = {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
     },
-    opts = {
-      strategies = {
-        -- Change the default chat adapter
-        chat = {
-          adapter = "ollama",
-          slash_commands = {
-            ["file"] = {
-              callback = "strategies.chat.slash_commands.file",
-              description = "Select a file using Telescope",
-              opts = {
-                provider = "telescope", -- Other options include 'default', 'mini_pick', 'fzf_lua'
-                contains_code = true,
-              },
-            },
+    opts = function()
+      local adapter = "openai" -- Default adapter
+
+      -- Detect if the system supports Ollama (e.g., M1/M2 Mac)
+      if vim.fn.has("macunix") == 1 and vim.loop.os_uname().machine == "arm64" then
+        adapter = "ollama"
+      end
+
+      return {
+        strategies = {
+          chat = {
+            adapter = adapter,
+          },
+          inline = {
+            adapter = adapter,
+          },
+          cmd = {
+            adapter = adapter,
           },
         },
-        inline = {
-          adapter = "ollama",
+        adapters = {
+          openai = function()
+            return require("codecompanion.adapters").extend("openai", {
+              env = {
+                api_key = vim.fn.getenv("OPENAI_API_KEY"),
+              },
+            })
+          end,
         },
-        cmd = {
-          adapter = "ollama"
-        }
-      },
-      opts = {
-        -- Set debug logging
         log_level = "DEBUG",
-      },
-    },
+      }
+    end,
   },
 }
+
