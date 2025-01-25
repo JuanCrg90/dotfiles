@@ -6,8 +6,8 @@ export MANPATH="/usr/local/man:$MANPATH"
 #Tmux plugin Autostart
 export ZSH_TMUX_AUTOSTART=true
 
-export EDITOR='nvim'
-export BUNDLER_EDITOR='nvim'
+export EDITOR='lvim'
+export BUNDLER_EDITOR='lvim'
 
 export PATH="/usr/local/sbin:$PATH"
 export PATH="/usr/local/opt/protobuf@3.7/bin:$PATH"
