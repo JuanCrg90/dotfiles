@@ -8,26 +8,20 @@ lvim.format_on_save = false
 lvim.lint_on_save = true
 lvim.colorscheme = "nightfox"
 
-
 vim.opt["relativenumber"] = true
 vim.opt.directory = "~/.tmp//"
 
 vim.cmd [[
 augroup StripTrailingWhitespace
-    autocmd!
-    autocmd BufWritePre * :%s/\s\+$//e
+autocmd!
+autocmd BufWritePre * :%s/\s\+$//e
 augroup END
 ]]
 
--- keymappings [view all the defaults by pressing <leader>Lk]
+-- Keymappings
 lvim.leader = ","
-
--- NvimTree setup
 lvim.keys.normal_mode["<leader>ne"] = ":NvimTreeFindFile<CR>"
-
--- Telescope setup
 lvim.builtin.which_key.mappings["f"] = { "<cmd>Telescope git_files<CR>", "Find File" }
--- Map Ctrl + P to open Telescope find files
 lvim.keys.normal_mode["<C-p>"] = ":Telescope git_files<CR>"
 
 -- vim-test configuration
@@ -41,22 +35,39 @@ lvim.keys.normal_mode["t<C-g>"] = ":TestVisit<CR>"
 lvim.plugins = {
   { "EdenEast/nightfox.nvim" },
   { "janko/vim-test" },
- {
-    "zbirenbaum/copilot.lua",
-    event = { "VimEnter" },
-    config = function()
-      vim.defer_fn(function()
-        require("copilot").setup {
-          plugin_manager_path = os.getenv "LUNARVIM_RUNTIME_DIR" .. "/site/pack/packer",
+  {
+    "olimorris/codecompanion.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+    },
+    opts = {
+      strategies = {
+        -- Change the default chat adapter
+        chat = {
+          adapter = "ollama",
+          slash_commands = {
+            ["file"] = {
+              callback = "strategies.chat.slash_commands.file",
+              description = "Select a file using Telescope",
+              opts = {
+                provider = "telescope", -- Other options include 'default', 'mini_pick', 'fzf_lua'
+                contains_code = true,
+              },
+            },
+          },
+        },
+        inline = {
+          adapter = "ollama",
+        },
+        cmd = {
+          adapter = "ollama"
         }
-      end, 100)
-    end,
+      },
+      opts = {
+        -- Set debug logging
+        log_level = "DEBUG",
+      },
     },
-    {
-      "zbirenbaum/copilot-cmp",
-      after = { "copilot.lua" },
-      config = function()
-        require("copilot_cmp").setup()
-      end,
-    },
+  },
 }
