@@ -2,6 +2,3 @@
 *.swp
 *.swo
 .DS_STORE
-
-# Ruby Version
-.ruby-version

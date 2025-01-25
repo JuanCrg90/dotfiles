@@ -4,7 +4,7 @@
 	username = JuanCrg90
 [core]
   excludesfile = ~/.gitignore_global
-	editor = nvim
+	editor = lvim
 [color]
   branch = auto
   diff = auto
