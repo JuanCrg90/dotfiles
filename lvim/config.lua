@@ -32,7 +32,6 @@ lvim.keys.normal_mode["t<C-s>"] = ":TestSuite<CR>"
 lvim.keys.normal_mode["t<C-l>"] = ":TestLast<CR>"
 lvim.keys.normal_mode["t<C-g>"] = ":TestVisit<CR>"
 
-
 lvim.plugins = {
   { "EdenEast/nightfox.nvim" },
   { "janko/vim-test" },
@@ -54,6 +53,25 @@ lvim.plugins = {
         strategies = {
           chat = {
             adapter = adapter,
+            roles = { llm = "Morpheus", user = "JuanCrg90"},
+            slash_commands = {
+              ["buffer"] = {
+                callback = "strategies.chat.slash_commands.buffer",
+                description = "Insert open buffers",
+                opts = {
+                  contains_code = true,
+                  provider = "telescope",
+                }
+              },
+              ["file"] = {
+                callback = "strategies.chat.slash_commands.file",
+                description = "Insert current file",
+                opts = {
+                  contains_code = true,
+                  provider = "telescope",
+                }
+              }
+            },
           },
           inline = {
             adapter = adapter,
@@ -71,9 +89,23 @@ lvim.plugins = {
             })
           end,
         },
+        display = {
+          chat = {
+            show_settings = true,
+          },
+          action_palette = {
+            width = 95,
+            height = 10,
+            prompt = "Prompt ",
+            provider = "telescope",
+            opts = {
+              show_default_actions = true,
+              show_default_prompt_library = true,
+            },
+          },
+        },
         log_level = "DEBUG",
       }
     end,
   },
 }
-
