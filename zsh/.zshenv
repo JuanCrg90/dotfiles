@@ -36,8 +36,6 @@ export DISABLE_SPRING=true
 export DB='postgres'
 export LC_ALL=en_US.UTF-8
 
-export POWERLINE="$(python3 -m site --user-site)/powerline/bindings/vim/plugin/powerline.vim"
-
 FILE=~/dotfiles/zsh/.private_vars
 if [ -f "$FILE" ]; then
   source $FILE
