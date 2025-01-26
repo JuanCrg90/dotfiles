@@ -32,6 +32,21 @@ lvim.keys.normal_mode["t<C-s>"] = ":TestSuite<CR>"
 lvim.keys.normal_mode["t<C-l>"] = ":TestLast<CR>"
 lvim.keys.normal_mode["t<C-g>"] = ":TestVisit<CR>"
 
+-- codecompanion key mappings
+-- Normal and Visual mode mappings for CodeCompanionActions
+lvim.keys.normal_mode["<leader>aa"] = "<cmd>CodeCompanionActions<CR>"
+lvim.keys.visual_mode["<leader>aa"] = "<cmd>CodeCompanionActions<CR>"
+
+-- Toggle the CodeCompanionChat in Normal and Visual mode
+lvim.keys.normal_mode["<leader>a"] = "<cmd>CodeCompanionChat Toggle<CR>"
+lvim.keys.visual_mode["<leader>a"] = "<cmd>CodeCompanionChat Toggle<CR>"
+
+-- Add selection to CodeCompanionChat in Visual mode
+lvim.keys.visual_mode["ga"] = "<cmd>CodeCompanionChat Add<CR>"
+
+-- Expand 'cc' into 'CodeCompanion' in the command line
+vim.cmd([[cab cc CodeCompanion]])
+
 lvim.plugins = {
   { "EdenEast/nightfox.nvim" },
   { "janko/vim-test" },
