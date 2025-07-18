@@ -12,4 +12,4 @@ alias be='bundle exec'
 alias ber='bundle exec rails'
 alias bert='bundle exec rails test'
 
-alias vim="lvim"
+alias vim="nvim"
