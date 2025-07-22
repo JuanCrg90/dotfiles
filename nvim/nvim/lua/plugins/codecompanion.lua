@@ -6,7 +6,7 @@ return {
       "nvim-treesitter/nvim-treesitter",
     },
     opts = function()
-      local adapter = "ollama" -- Default adapter
+      local adapter = "openai" -- Default adapter
       local model = "gpt-4.1"
 
       -- Detect if the system supports Ollama (e.g., M1/M2 Mac)
