@@ -12,7 +12,7 @@ return {
       -- Detect if the system supports Ollama (e.g., M1/M2 Mac)
       if vim.fn.has("macunix") == 1 and vim.loop.os_uname().machine == "arm64" then
         adapter = "ollama"
-        model = "qwen2.5-coder:latest"
+        model = "qwen3"
       end
 
       return {
