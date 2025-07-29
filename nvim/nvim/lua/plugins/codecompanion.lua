@@ -108,6 +108,9 @@ return {
             },
           },
         },
+        extensions = {
+          spinner = {},
+        },
         log_level = "DEBUG",
       }
     end,
