@@ -73,7 +73,7 @@ return {
                   default = model,
                 },
                 num_ctx = {
-                  default = 16384,
+                  default = 20000,
                 },
                 think = {
                   -- default = false,
