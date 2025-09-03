@@ -9,7 +9,9 @@
     "lazyvim.plugins.extras.lang.ruby",
     "lazyvim.plugins.extras.lang.tailwind",
     "lazyvim.plugins.extras.lang.terraform",
-    "lazyvim.plugins.extras.test.core"
+    "lazyvim.plugins.extras.test.core",
+    "lazyvim.plugins.extras.util.dot",
+    "lazyvim.plugins.extras.util.rest"
   ],
   "install_version": 8,
   "news": {
