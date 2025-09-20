@@ -8,7 +8,7 @@ return {
     },
     opts = function()
       local adapter = "openai" -- Default adapter
-      local model = "gpt-4.1"
+      local model = "gpt-5"
 
       -- Detect if the system supports Ollama (e.g., M1/M2 Mac)
       if vim.fn.has("macunix") == 1 and vim.loop.os_uname().machine == "arm64" then
@@ -92,10 +92,44 @@ return {
               },
             })
           end,
+          ollama_remote = function()
+            return require("codecompanion.adapters").extend("ollama", {
+              name = adapter, -- Give this adapter a different name to differentiate it from the default ollama adapter
+              env = {
+                url = "http://192.168.4.56:11434",
+              },
+              opts = {
+                vision = true,
+                stream = true,
+              },
+              schema = {
+                model = {
+                  default = model,
+                },
+                num_ctx = {
+                  default = 20000,
+                },
+                think = {
+                  -- default = false,
+                  -- or, if you want to automatically turn on `think` for certain models:
+                  default = function(adapter)
+                    -- this'll set `think` to true if the model name contain `qwen3` or `deepseek-r1`
+                    local model_name = adapter.model.name:lower()
+                    return vim.iter({ "qwen3", "deepseek-r1" }):any(function(kw)
+                      return string.find(model_name, kw) ~= nil
+                    end)
+                  end,
+                },
+                keep_alive = {
+                  default = "5m",
+                },
+              },
+            })
+          end,
         },
         display = {
           chat = {
-            show_settings = true,
+            show_settings = false,
           },
           action_palette = {
             width = 95,
