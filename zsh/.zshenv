@@ -22,15 +22,9 @@ if [ -d "$JAVA8" ]; then
   export CPPFLAGS="-I/usr/local/opt/openjdk@8/include"
 fi
 
-GO_LANG=/usr/local/bin/go
-if [ -f "$GO_LANG" ]; then
-  export GOPATH=$HOME/go
-  export GOROOT="$(brew --prefix golang)/libexec"
-  export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"
-fi
-
-export LDFLAGS="-L/usr/local/opt/openssl/lib"
-export CPPFLAGS="-I/usr/local/opt/openssl/include"
+export RUBY_CONFIGURE_OPTS="--with-openssl-dir=/opt/homebrew/opt/openssl@3"
+export LDFLAGS="-L/opt/homebrew/opt/openssl@3/lib"
+export CPPFLAGS="-I/opt/homebrew/opt/openssl@3/include"
 
 export DISABLE_SPRING=true
 export DB='postgres'
