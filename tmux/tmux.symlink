@@ -24,9 +24,14 @@ set -g mouse on
 ## Copy-paste integration
 set-option -g default-command "reattach-to-user-namespace -l zsh"
 
+set -g extended-keys on
+set -g extended-keys-format csi-u
+
 ## Bind 'ESC' to use copy-mode
 unbind [
 bind Escape copy-mode
+
+set -g set-clipboard on
 #
 # Setup 'v' to begin selection as in Vim
 bind -T copy-mode-vi v send -X begin-selection
