@@ -26,17 +26,12 @@ version_at_least() {
 install_tree_sitter() {
   command -v tree-sitter >/dev/null 2>&1 && return
 
-  local_bin="$home/.local/bin"
-  mkdir -p "$local_bin"
-  PNPM_HOME="$local_bin"
-  PATH="$PNPM_HOME:$PATH"
-  export PNPM_HOME PATH
-
-  if ! command -v pnpm >/dev/null 2>&1; then
-    npm_config_prefix="$home/.local" npm install --global pnpm
+  if ! command -v mise >/dev/null 2>&1; then
+    printf '%s\n' "mise is required for tree-sitter-cli; install it with mise/install.sh first." >&2
+    exit 1
   fi
 
-  pnpm add --global tree-sitter-cli
+  mise install tree-sitter-cli
 }
 
 install_packages() {
@@ -58,7 +53,7 @@ install_packages() {
         exit 1
       }
       sudo apt-get update
-      sudo apt-get install -y ripgrep fd-find wl-clipboard xclip build-essential nodejs npm
+      sudo apt-get install -y ripgrep fd-find wl-clipboard xclip build-essential
       if ! snap list nvim >/dev/null 2>&1; then
         sudo snap install nvim --classic
       fi
