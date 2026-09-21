@@ -8,7 +8,6 @@ typeset -U path
 export EDITOR=nvim
 export BUNDLER_EDITOR="$EDITOR"
 export DISABLE_SPRING=true
-export DB=postgres
 
 () {
   local zsh_dotfiles_dir="${${(%):-%N}:A:h}"
