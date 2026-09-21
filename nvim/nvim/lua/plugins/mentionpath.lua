@@ -1,7 +1,8 @@
 return {
   {
-    "mentionpath.nvim",
-    dir = "~/Projects/mentionpath.nvim",
+    "JuanCrg90/mentionpath.nvim",
+    -- For local plugin development, uncomment the next line.
+    -- dir = "~/Projects/mentionpath.nvim",
     ft = "markdown",
     dependencies = { "saghen/blink.cmp" },
     opts = {
