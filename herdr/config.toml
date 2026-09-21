@@ -1,0 +1,19 @@
+onboarding = false
+[theme]
+name = "terminal"
+auto_switch = false
+
+[keys]
+prefix = "ctrl+a"
+split_vertical = "prefix+|"
+split_horizontal = "prefix+minus"
+
+[ui]
+agent_panel_sort = "spaces"
+
+show_agent_labels_on_pane_borders = true
+[ui.sound]
+enabled = true
+
+[ui.toast]
+delivery = "system"
