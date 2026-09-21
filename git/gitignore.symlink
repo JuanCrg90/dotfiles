@@ -1,4 +1,4 @@
 # Vim Swap Files
 *.swp
 *.swo
-.DS_STORE
+.DS_Store

@@ -15,12 +15,9 @@
 	rebase = true
 [push]
 	default = simple
-[autosetup]
-  rebase = true
 [branch]
   autosetuprebase = remote
   autosetupmerge = true
-  mergeoptions = --no-commit --no-ff
 [fetch]
   prune = true
 [alias]
