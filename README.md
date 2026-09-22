@@ -15,7 +15,9 @@ All installers are idempotent, cross-platform where applicable, and follow POSIX
 
 ```
 dotfiles/
-├── git/              # Git configuration (config symlinks + gitignore)
+├── install.sh         # All-in-one personal-machine installer
+├── tests/             # POSIX shell regression tests
+├── git/               # Git configuration (config symlinks + gitignore)
 ├── gh/               # GitHub CLI installer
 ├── pi/               # Pi primary AI development harness installer
 ├── codex/            # Codex secondary AI development harness installer
@@ -43,6 +45,10 @@ sh ~/.dotfiles/install.sh
 
 It installs dependencies in this order: mise → Pi → Codex → Herdr → Neovim →
 Zsh → Git → GitHub CLI → rtk. UHK remains opt-in (`--with-uhk`).
+
+Use `sh ~/.dotfiles/install.sh --help` to list component skip flags. The
+installer continues with independent components and returns a non-zero status
+if any component fails.
 
 To run installers individually:
 
@@ -90,13 +96,13 @@ git clone git@github.com:JuanCrg90/dotfiles.git ~/.dotfiles
 sh ~/.dotfiles/homelab/install.sh
 ```
 
-This script automates the complete homelab setup:
+This script automates the complete homelab setup in this order:
 
-1. **NVIDIA drivers + CUDA toolkit** (optional: skip with `HOMELAB_SKIP_NVIDIA=1`)
+1. **NVIDIA drivers + CUDA toolkit** (optional: `HOMELAB_SKIP_NVIDIA=1`)
 2. **System tools** (build-essential, git, cmake, curl, wget, ffmpeg, nvtop, htop, openssh-server, tailscale, fwupd, zsh)
-3. **Dotfiles** (mise → Pi → Codex → herdr → nvim → zsh → git → gh → rtk)
-4. **ML/AI tools** (Ollama, llama.cpp with CUDA, Hugging Face CLI, llama-swap)
-5. **Docker** (via snap)
+3. **ML/AI tools** (Ollama, llama.cpp with CUDA, Hugging Face CLI, llama-swap)
+4. **Docker** (via snap)
+5. **Dotfiles** (mise → Pi → Codex → Herdr → Neovim → Zsh → Git → GitHub CLI → rtk)
 
 Each step is independently skippable via `HOMELAB_SKIP_*` environment variables. See the script source for all available skip options.
 
@@ -133,18 +139,24 @@ The `tree-sitter` binary is required by Neovim's native LSP and language support
 
 **Pop!_OS Linux:** Installed via Snap (`sudo snap install mise --classic`).
 
-Mise manages pnpm 11.9.0 globally, which is used by Neovim on Linux for
-`tree-sitter-cli`. Zsh adds the platform-specific global binary directory
-reported by `pnpm bin --global`, so user-installed Node CLIs work on macOS and
-Pop!_OS without local shell overrides.
+Mise manages Node.js and pnpm. pnpm is pinned to 11.9.0 because the current
+Mise `npm:pnpm` shim cannot execute pnpm 12's shell launcher. Neovim uses that
+same pinned pnpm version to install `tree-sitter-cli` on Linux.
+
+Zsh adds the platform-specific directory reported by `pnpm bin --global`, so
+user-installed Node CLIs work on macOS and Pop!_OS without local shell
+overrides. Use global pnpm packages only for machine-level CLIs and update them
+explicitly with `pnpm update --global`; keep project dependencies local and run
+them with `pnpm exec` or project scripts.
 
 ### Pi (primary AI development harness)
 
 Installs with the [official Pi installer](https://pi.dev/install.sh) using
 mise-managed `node@latest`, satisfying Pi's Node.js and npm requirement
-without a system Node.js installation. Pi is installed at `~/.local/bin/pi`
-and stores its managed files in `~/.pi/agent/`. Run `pi` and use `/login` to
-authenticate.
+without a system Node.js installation. A new managed installation is exposed at
+`~/.local/bin/pi` and stores its managed files in `~/.pi/agent/`. The wrapper
+also accepts an already executable `pi` elsewhere on `PATH`, such as a prior
+pnpm global installation. Run `pi` and use `/login` to authenticate.
 
 ### Codex (secondary AI development harness)
 
@@ -155,7 +167,11 @@ already adds that directory. Run `codex` to authenticate.
 
 ### Zsh
 
-Requires `zsh`, `git`, and `mise` to be installed first (checked at runtime). Clones Oh My Zsh and Powerlevel10k theme, then symlinks `.zshrc` and `.zshenv`.
+Requires `zsh`, `git`, and `mise` to be installed first (checked at runtime).
+Clones Oh My Zsh and Powerlevel10k, then symlinks `.zshrc` and `.zshenv`.
+Existing files or symlinks that point elsewhere are never overwritten: move
+them aside manually before rerunning the installer. Put machine-specific shell
+customizations in `~/.zsh.local`, which is sourced after mise activation.
 
 ### Git
 
@@ -188,13 +204,30 @@ Symlinks `~/.config/herdr/config.toml` from the repo.
 
 Exports a portable `Default` profile excluding machine-specific settings (working directories, bound hosts, sessions). Import manually via iTerm2 preferences.
 
+### Neovim Plugin Lock
+
+`nvim/nvim/lazy-lock.json` is the shared source of truth for plugin commits.
+On regular machines, pull the repository and use `:Lazy sync`; do not run
+`:Lazy update`. Update plugins only on a designated maintenance machine, test
+the result, then commit and push the lockfile. Lazy's update checker only
+checks for updates and does not modify the lockfile.
+
+## Validation
+
+Run the installer regressions after changing shell scripts:
+
+```sh
+sh tests/installers.sh
+sh tests/zsh.sh
+```
+
 ## Safety Features
 
 All installers include:
 
 - **Idempotency:** Safe to run multiple times
-- **Safe backups:** Existing configs are backed up before being replaced
-- **Symlink validation:** Refuses to overwrite existing symlinks pointing elsewhere
+- **Config preservation:** Neovim and Herdr back up replaced configs; Zsh refuses to replace existing files or foreign symlinks
+- **Symlink validation:** Refuses to overwrite symlinks that point elsewhere
 - **Version checks:** Neovim requires ≥0.11.2
 - **POSIX compliance:** Scripts use `#!/bin/sh` for maximum compatibility
 
