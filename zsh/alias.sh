@@ -7,11 +7,11 @@ alias be='bundle exec'
 alias ber='bundle exec rails'
 alias bert='bundle exec rails test'
 
-if [[ "$OSTYPE" == darwin* ]] && (($ + commands[brew])); then
+if [[ "$OSTYPE" == darwin* ]] && (( $+commands[brew] )); then
   alias bubc='brew upgrade && brew cleanup'
 fi
 
-if (($ + commands[nvim])); then
+if (( $+commands[nvim] )); then
   alias vim='nvim'
 fi
 
