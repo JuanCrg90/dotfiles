@@ -2,9 +2,6 @@
 
 set -eu
 
-script_dir=$(CDPATH= cd "$(dirname "$0")" && pwd)
-home=${HOME:?HOME must be set}
-
 install_mise() {
   command -v mise >/dev/null 2>&1 && return
 
@@ -42,12 +39,13 @@ install_mise() {
 }
 
 setup_pnpm() {
-  mise use --global pnpm@latest >/dev/null 2>&1
-  mise trust "$script_dir" 2>/dev/null || true
+  printf '%s\n' "Configuring Node.js and pnpm through mise..."
+  mise unuse --global pnpm || true
+  mise use --global node@latest npm:pnpm@latest
 }
 
 install_mise
 setup_pnpm
 
 printf '%s\n' "mise installed: $(command -v mise) ($(mise --version 2>/dev/null || echo "version unknown"))"
-printf '%s\n' "pnpm is managed by mise and used for global CLI packages."
+printf '%s\n' "Node.js and pnpm are managed by mise; pnpm installs global CLI packages."

@@ -37,8 +37,8 @@ install_tree_sitter() {
   PATH="$pnpm_home:$pnpm_home/bin:$PATH"
   export PNPM_HOME PATH
 
-  mise exec pnpm@latest -- pnpm add --global tree-sitter-cli
-  global_bin=$(mise exec pnpm@latest -- pnpm bin --global)
+  mise exec node@latest npm:pnpm@latest -- pnpm add --global tree-sitter-cli
+  global_bin=$(mise exec node@latest npm:pnpm@latest -- pnpm bin --global)
   if [ ! -x "$global_bin/tree-sitter" ]; then
     printf 'tree-sitter-cli installed but binary missing at %s/tree-sitter.\n' "$global_bin" >&2
     exit 1
