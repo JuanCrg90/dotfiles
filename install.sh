@@ -9,7 +9,7 @@ home=${HOME:?HOME must be set}
 # All-in-One Dotfiles Installer
 # ============================================================
 # Installs all dotfiles in dependency order:
-#   mise → herdr → nvim → zsh → git → gh → iterm
+#   mise → herdr → nvim → zsh → git → gh → rtk → iterm
 #
 # Usage:
 #   sh ~/dotfiles/install.sh              # Install all standard dotfiles
@@ -18,7 +18,7 @@ home=${HOME:?HOME must be set}
 #
 # Available skips:
 #   --skip-mise, --skip-herdr, --skip-nvim,
-#   --skip-zsh, --skip-git, --skip-gh, --skip-iterm
+#   --skip-zsh, --skip-git, --skip-gh, --skip-rtk, --skip-iterm
 #
 # UHK is opt-in because its configuration only applies when the keyboard is
 # connected.
@@ -30,6 +30,7 @@ SKIP_NVIM=0
 SKIP_ZSH=0
 SKIP_GIT=0
 SKIP_GH=0
+SKIP_RTK=0
 SKIP_ITERM=0
 INSTALL_UHK=0
 
@@ -42,10 +43,11 @@ parse_args() {
       --skip-zsh)   SKIP_ZSH=1 ;;
       --skip-git)   SKIP_GIT=1 ;;
       --skip-gh)    SKIP_GH=1 ;;
+      --skip-rtk)   SKIP_RTK=1 ;;
       --skip-iterm) SKIP_ITERM=1 ;;
       --with-uhk)   INSTALL_UHK=1 ;;
       --help|-h)
-        printf '%s\n' "Usage: $0 [--skip-mise] [--skip-herdr] [--skip-nvim] [--skip-zsh] [--skip-git] [--skip-gh] [--skip-iterm] [--with-uhk]"
+        printf '%s\n' "Usage: $0 [--skip-mise] [--skip-herdr] [--skip-nvim] [--skip-zsh] [--skip-git] [--skip-gh] [--skip-rtk] [--skip-iterm] [--with-uhk]"
         printf '%s\n' ""
         printf '%s\n' "All installers are idempotent — safe to run multiple times."
         exit 0
@@ -97,6 +99,12 @@ run_installer() {
     gh)
       if [ "$SKIP_GH" = 1 ]; then
         printf '%s\n' "[SKIP] gh"
+        return
+      fi
+      ;;
+    rtk)
+      if [ "$SKIP_RTK" = 1 ]; then
+        printf '%s\n' "[SKIP] rtk"
         return
       fi
       ;;
@@ -166,13 +174,14 @@ main() {
 
   errors=0
 
-  # Dependency order: mise → herdr → nvim → zsh → git → gh
+  # Dependency order: mise → herdr → nvim → zsh → git → gh → rtk
   run_installer mise  "$script_dir/mise"  || errors=$((errors + 1))
   run_installer herdr "$script_dir/herdr" || errors=$((errors + 1))
   run_installer nvim  "$script_dir/nvim"  || errors=$((errors + 1))
   run_installer zsh   "$script_dir/zsh"   || errors=$((errors + 1))
   run_installer git   "$script_dir/git"   || errors=$((errors + 1))
   run_installer gh    "$script_dir/gh"    || errors=$((errors + 1))
+  run_installer rtk   "$script_dir/rtk"   || errors=$((errors + 1))
 
   # Platform-specific installers
   install_iterm || errors=$((errors + 1))

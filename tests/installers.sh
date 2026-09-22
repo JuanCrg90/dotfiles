@@ -9,10 +9,11 @@ trap 'trash "$tmpdir"' EXIT HUP INT TERM
 home="$tmpdir/home"
 mock_bin="$tmpdir/bin"
 
-mkdir -p "$home" "$mock_bin" "$tmpdir/gh" "$tmpdir/mise" "$tmpdir/nvim/nvim" "$tmpdir/iterm"
+mkdir -p "$home" "$mock_bin" "$tmpdir/gh" "$tmpdir/mise" "$tmpdir/nvim/nvim" "$tmpdir/rtk" "$tmpdir/iterm"
 cp "$repo_dir/gh/install.sh" "$tmpdir/gh/install.sh"
 cp "$repo_dir/mise/install.sh" "$tmpdir/mise/install.sh"
 cp "$repo_dir/nvim/install.sh" "$tmpdir/nvim/install.sh"
+cp "$repo_dir/rtk/install.sh" "$tmpdir/rtk/install.sh"
 cp "$repo_dir/install.sh" "$tmpdir/install.sh"
 cp "$repo_dir/iterm/Profiles.json" "$tmpdir/iterm/Profiles.json"
 cp "$repo_dir/iterm/monokai_tasty.itermcolors" "$tmpdir/iterm/monokai_tasty.itermcolors"
@@ -50,6 +51,10 @@ case "$*" in
 esac'
 mock nvim 'printf "%s\\n" "NVIM v0.12.5"'
 mock fdfind 'exit 0'
+mock curl '
+printf "%s\\n" "$*" >> "$RTK_LOG"
+printf "%s\\n" "mkdir -p \"\$RTK_INSTALL_DIR\"" "printf \"%s\\\\n\" \"#!/bin/sh\" \"exit 0\" > \"\$RTK_INSTALL_DIR/rtk\"" "chmod +x \"\$RTK_INSTALL_DIR/rtk\""
+'
 mock mise '
 case "$*" in
   "unuse --global pnpm")
@@ -79,6 +84,7 @@ esac'
 PATH="$mock_bin:$PATH" HOME="$home" MISE_LOG="$tmpdir/mise.log" sh "$tmpdir/mise/install.sh"
 PATH="$mock_bin:$PATH" HOME="$home" MISE_LOG="$tmpdir/mise.log" sh "$tmpdir/nvim/install.sh"
 PATH="$mock_bin:/usr/bin:/bin" HOME="$home" MOCK_BIN="$mock_bin" SNAP_LOG="$tmpdir/snap.log" sh "$tmpdir/gh/install.sh"
+PATH="$mock_bin:/usr/bin:/bin" HOME="$home" RTK_LOG="$tmpdir/rtk.log" sh "$tmpdir/rtk/install.sh"
 
 test -L "$home/.local/bin/tree-sitter"
 test "$(readlink "$home/.local/bin/tree-sitter")" = "$home/.local/share/pnpm/bin/tree-sitter"
@@ -88,8 +94,10 @@ grep -qx 'use --global node@latest npm:pnpm@latest' "$tmpdir/mise.log"
 grep -qx 'exec node@latest npm:pnpm@latest -- pnpm add --global tree-sitter-cli' "$tmpdir/mise.log"
 test -x "$mock_bin/gh"
 grep -qx 'install gh --classic' "$tmpdir/snap.log"
+test -x "$home/.local/bin/rtk"
+grep -Fqx -- '-fsSL https://raw.githubusercontent.com/rtk-ai/rtk/refs/heads/master/install.sh' "$tmpdir/rtk.log"
 
-output=$(PATH="$mock_bin:$PATH" HOME="$home" sh "$tmpdir/install.sh" --skip-mise --skip-herdr --skip-nvim --skip-zsh --skip-git --skip-gh --skip-iterm)
+output=$(PATH="$mock_bin:$PATH" HOME="$home" sh "$tmpdir/install.sh" --skip-mise --skip-herdr --skip-nvim --skip-zsh --skip-git --skip-gh --skip-rtk --skip-iterm)
 printf '%s\n' "$output" | grep -Fqx '[SKIP] uhk (use --with-uhk)'
 
 mock_bin="$tmpdir/mac-bin"

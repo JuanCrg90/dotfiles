@@ -17,6 +17,7 @@ All installers are idempotent, cross-platform where applicable, and follow POSIX
 dotfiles/
 ├── git/              # Git configuration (config symlinks + gitignore)
 ├── gh/               # GitHub CLI installer
+├── rtk/              # rtk command-wrapper installer
 ├── zsh/              # Zsh + Oh My Zsh + Powerlevel10k theme
 ├── nvim/             # Neovim configuration + installer
 ├── herdr/            # Herdr terminal multiplexer config
@@ -52,10 +53,13 @@ sh ~/.dotfiles/git/install.sh
 # 5. Install GitHub CLI
 sh ~/.dotfiles/gh/install.sh
 
-# 6. Install Herdr
+# 6. Install rtk
+sh ~/.dotfiles/rtk/install.sh
+
+# 7. Install Herdr
 sh ~/.dotfiles/herdr/install.sh
 
-# 7. Install iTerm2 profile (macOS only)
+# 8. Install iTerm2 profile (macOS only)
 # Copy iterm/Profiles.json to your iTerm2 preferences via:
 # iTerm2 → Settings → Profiles → Import
 ```
@@ -75,7 +79,7 @@ This script automates the complete homelab setup:
 
 1. **NVIDIA drivers + CUDA toolkit** (optional: skip with `HOMELAB_SKIP_NVIDIA=1`)
 2. **System tools** (build-essential, git, cmake, curl, wget, ffmpeg, nvtop, htop, openssh-server, tailscale, fwupd, zsh)
-3. **Dotfiles** (mise → herdr → nvim → zsh → git → gh)
+3. **Dotfiles** (mise → herdr → nvim → zsh → git → gh → rtk)
 4. **ML/AI tools** (Ollama, llama.cpp with CUDA, Hugging Face CLI, llama-swap)
 5. **Docker** (via snap)
 
@@ -87,6 +91,7 @@ Each step is independently skippable via `HOMELAB_SKIP_*` environment variables.
 |-----------|-------|---------------|
 | `git/` | ✅ | ✅ |
 | `gh/` | ✅ (Homebrew) | ✅ (Snap) |
+| `rtk/` | ✅ (official installer) | ✅ (official installer) |
 | `zsh/` | ✅ | ✅ |
 | `nvim/` | ✅ (Homebrew) | ✅ (Snap + APT + pnpm) |
 | `herdr/` | ✅ (Homebrew) | ✅ (official installer) |
@@ -128,6 +133,13 @@ Symlinks `gitconfig` and `.gitignore_global`. Does not install `git` itself — 
 **Pop!_OS Linux:** Installed via Snap (`sudo snap install gh --classic`).
 
 Use `gh auth login` after installation to authenticate each device.
+
+### rtk
+
+Installs via the official checksum-verified installer to `~/.local/bin/rtk`.
+
+The tracked Zsh environment (`zsh/.zshenv`) prepends `~/.local/bin` whenever
+it exists. Open a new Zsh session after installation to use `rtk`.
 
 ### Herdr
 

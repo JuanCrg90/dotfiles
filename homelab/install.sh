@@ -170,7 +170,26 @@ install_gh() {
 }
 
 # ============================================================
-# 10. Ollama
+# 10. Dotfiles: rtk
+# ============================================================
+install_rtk() {
+  if [ "${HOMELAB_SKIP_DOTFILES:-0}" = 1 ]; then
+    return
+  fi
+
+  rtk_dir="$script_dir/../rtk"
+  if [ -d "$rtk_dir" ] && [ -x "$rtk_dir/install.sh" ]; then
+    printf '%s\n' "Running rtk/install.sh..."
+    sh "$rtk_dir/install.sh"
+  elif [ -x "$home/.local/bin/rtk" ]; then
+    printf '%s\n' "rtk already installed: $home/.local/bin/rtk"
+  else
+    printf '%s\n' "Warning: rtk/install.sh not found and rtk not installed."
+  fi
+}
+
+# ============================================================
+# 11. Ollama
 # ============================================================
 install_ollama() {
   if [ "${HOMELAB_SKIP_OLLAMA:-0}" = 1 ]; then
@@ -188,7 +207,7 @@ install_ollama() {
 }
 
 # ============================================================
-# 11. llama.cpp (CUDA build)
+# 12. llama.cpp (CUDA build)
 # ============================================================
 install_llama_cpp() {
   if [ "${HOMELAB_SKIP_LLAMA_CPP:-0}" = 1 ]; then
@@ -214,7 +233,7 @@ install_llama_cpp() {
 }
 
 # ============================================================
-# 12. Hugging Face CLI
+# 13. Hugging Face CLI
 # ============================================================
 install_hf_cli() {
   if [ "${HOMELAB_SKIP_HF_CLI:-0}" = 1 ]; then
@@ -232,7 +251,7 @@ install_hf_cli() {
 }
 
 # ============================================================
-# 13. llama-swap
+# 14. llama-swap
 # ============================================================
 install_llama_swap() {
   if [ "${HOMELAB_SKIP_LLAMA_SWAP:-0}" = 1 ]; then
@@ -254,7 +273,7 @@ install_llama_swap() {
 }
 
 # ============================================================
-# 14. Docker (snap)
+# 15. Docker (snap)
 # ============================================================
 install_docker() {
   if [ "${HOMELAB_SKIP_DOCKER:-0}" = 1 ]; then
@@ -297,13 +316,14 @@ main() {
   install_llama_swap
   install_docker
 
-  # Dotfiles (order: mise → herdr → nvim → zsh → git → gh)
+  # Dotfiles (order: mise → herdr → nvim → zsh → git → gh → rtk)
   install_mise
   install_herdr
   install_nvim
   install_zsh
   install_git
   install_gh
+  install_rtk
 
   printf '%s\n' ""
   printf '%s\n' "========================================"
