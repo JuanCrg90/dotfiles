@@ -40,20 +40,20 @@ else
 fi
 
 # Symlink config.toml
+mkdir -p "$config_dir"
+
 if [ -L "$config_file" ] && [ "$(readlink "$config_file")" = "$script_dir/config.toml" ]; then
   printf '%s\n' "Config already linked: $config_file -> $script_dir/config.toml"
-elif [ -L "$config_file" ]; then
-  printf '%s\n' "Refusing to replace existing symlink at $config_file" >&2
-  printf '%s\n' "Remove or update the symlink manually before rerunning this script." >&2
+elif [ -d "$config_file" ]; then
+  printf '%s\n' "Refusing to replace directory $config_file" >&2
   exit 1
-elif [ -e "$config_file" ]; then
-  backup="${config_file}.backup.$(date +%Y%m%d%H%M%S)"
-  cp "$config_file" "$backup"
-  printf '%s\n' "Backed up existing config to $backup"
-  ln -s "$script_dir/config.toml" "$config_file"
-  printf '%s\n' "Linked config: $config_file -> $script_dir/config.toml"
 else
-  mkdir -p "$config_dir"
+  if [ -e "$config_file" ] || [ -L "$config_file" ]; then
+    backup=$(mktemp "${config_file}.backup.XXXXXX")
+    mv "$config_file" "$backup"
+    printf '%s\n' "Backed up existing config to $backup"
+  fi
+
   ln -s "$script_dir/config.toml" "$config_file"
   printf '%s\n' "Linked config: $config_file -> $script_dir/config.toml"
 fi

@@ -9,8 +9,10 @@ trap 'trash "$tmpdir"' EXIT HUP INT TERM
 home="$tmpdir/home"
 mock_bin="$tmpdir/bin"
 
-mkdir -p "$home" "$mock_bin" "$tmpdir/gh" "$tmpdir/mise" "$tmpdir/nvim/nvim" "$tmpdir/rtk" "$tmpdir/iterm"
+mkdir -p "$home" "$mock_bin" "$tmpdir/gh" "$tmpdir/herdr" "$tmpdir/mise" "$tmpdir/nvim/nvim" "$tmpdir/rtk" "$tmpdir/iterm"
 cp "$repo_dir/gh/install.sh" "$tmpdir/gh/install.sh"
+cp "$repo_dir/herdr/config.toml" "$tmpdir/herdr/config.toml"
+cp "$repo_dir/herdr/install.sh" "$tmpdir/herdr/install.sh"
 cp "$repo_dir/mise/install.sh" "$tmpdir/mise/install.sh"
 cp "$repo_dir/nvim/install.sh" "$tmpdir/nvim/install.sh"
 cp "$repo_dir/rtk/install.sh" "$tmpdir/rtk/install.sh"
@@ -50,6 +52,7 @@ case "$*" in
     ;;
 esac'
 mock nvim 'printf "%s\\n" "NVIM v0.12.5"'
+mock herdr 'exit 0'
 mock fdfind 'exit 0'
 mock curl '
 printf "%s\\n" "$*" >> "$RTK_LOG"
@@ -81,11 +84,20 @@ case "$*" in
     ;;
 esac'
 
+old_herdr_config="$tmpdir/old-herdr-config.toml"
+: > "$old_herdr_config"
+mkdir -p "$home/.config/herdr"
+ln -s "$old_herdr_config" "$home/.config/herdr/config.toml"
+PATH="$mock_bin:$PATH" HOME="$home" sh "$tmpdir/herdr/install.sh"
+
 PATH="$mock_bin:$PATH" HOME="$home" MISE_LOG="$tmpdir/mise.log" sh "$tmpdir/mise/install.sh"
 PATH="$mock_bin:$PATH" HOME="$home" MISE_LOG="$tmpdir/mise.log" sh "$tmpdir/nvim/install.sh"
 PATH="$mock_bin:/usr/bin:/bin" HOME="$home" MOCK_BIN="$mock_bin" SNAP_LOG="$tmpdir/snap.log" sh "$tmpdir/gh/install.sh"
 PATH="$mock_bin:/usr/bin:/bin" HOME="$home" RTK_LOG="$tmpdir/rtk.log" sh "$tmpdir/rtk/install.sh"
 
+test "$(readlink "$home/.config/herdr/config.toml")" = "$tmpdir/herdr/config.toml"
+herdr_backup=$(find "$home/.config/herdr" -maxdepth 1 -type l -name 'config.toml.backup.*' -print)
+test "$(readlink "$herdr_backup")" = "$old_herdr_config"
 test -L "$home/.local/bin/tree-sitter"
 test "$(readlink "$home/.local/bin/tree-sitter")" = "$home/.local/share/pnpm/bin/tree-sitter"
 test "$(readlink "$home/.config/nvim")" = "$tmpdir/nvim/nvim"
