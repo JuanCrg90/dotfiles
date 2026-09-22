@@ -133,6 +133,28 @@ Each step is independently skippable via `HOMELAB_SKIP_*` environment variables.
 
 The `tree-sitter` binary is required by Neovim's native LSP and language support. On Pop!_OS, it's installed via mise → pnpm since Snap/APT don't provide `tree-sitter-cli`.
 
+#### Remote Clipboard
+
+Local Neovim uses its native system clipboard provider. In SSH sessions and
+Linux Herdr panes, Neovim uses its built-in OSC 52 provider so yanks reach the
+clipboard of the terminal running on the local machine. This requires a local
+terminal emulator that supports OSC 52 clipboard writes and permits terminal
+applications to access the clipboard.
+
+For remote paste, use the terminal's normal paste shortcut (for example,
+<kbd>Cmd</kbd>+<kbd>V</kbd> in iTerm2); it sends the clipboard text to the
+remote Neovim instance. OSC 52 clipboard reads are terminal-dependent and may
+be disabled for security.
+
+Verify the write path from a remote Herdr pane before relying on it:
+
+```sh
+printf '\033]52;c;%s\a' "$(printf 'OSC 52 clipboard test' | base64 | tr -d '\n')"
+```
+
+Paste into a local application. If it contains `OSC 52 clipboard test`, the
+terminal, Herdr remote bridge, and local clipboard path are working.
+
 ### Mise
 
 **macOS:** Installed via Homebrew (`brew install mise`).
