@@ -11,6 +11,12 @@ if [ -x "$pi_bin" ]; then
   exit 0
 fi
 
+existing_pi=$(command -v pi 2>/dev/null || true)
+if [ -n "$existing_pi" ] && [ -x "$existing_pi" ]; then
+  printf '%s\n' "Pi already installed: $existing_pi"
+  exit 0
+fi
+
 command -v mise >/dev/null 2>&1 || {
   printf 'mise is required to install Pi. Run mise/install.sh first.\n' >&2
   exit 1

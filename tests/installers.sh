@@ -86,13 +86,13 @@ case "$*" in
   "--version")
     printf "%s\\n" "mise test"
     ;;
-  "exec node@latest npm:pnpm@latest -- pnpm add --global tree-sitter-cli")
+  "exec node@latest npm:pnpm@11.9.0 -- pnpm add --global tree-sitter-cli")
     printf "%s\\n" "$*" >> "$MISE_LOG"
     mkdir -p "$PNPM_HOME/bin"
     : > "$PNPM_HOME/bin/tree-sitter"
     chmod +x "$PNPM_HOME/bin/tree-sitter"
     ;;
-  "exec node@latest npm:pnpm@latest -- pnpm bin --global")
+  "exec node@latest npm:pnpm@11.9.0 -- pnpm bin --global")
     printf "%s\\n" "$PNPM_HOME/bin"
     ;;
   "exec node@latest -- sh -c curl -fsSL https://pi.dev/install.sh | sh")
@@ -116,7 +116,15 @@ PATH="$mock_bin:$PATH" HOME="$home" MISE_LOG="$tmpdir/mise.log" sh "$tmpdir/nvim
 PATH="$mock_bin:/usr/bin:/bin" HOME="$home" MOCK_BIN="$mock_bin" SNAP_LOG="$tmpdir/snap.log" sh "$tmpdir/gh/install.sh"
 PATH="$mock_bin:/usr/bin:/bin" HOME="$home" RTK_LOG="$tmpdir/rtk.log" CURL_LOG="$tmpdir/curl.log" sh "$tmpdir/rtk/install.sh"
 printf '%s\n' 'existing zsh config' > "$home/.zshrc"
-PATH="$mock_bin:$PATH" HOME="$home" MISE_LOG="$tmpdir/mise.log" CURL_LOG="$tmpdir/curl.log" sh "$tmpdir/pi/install.sh"
+PATH="$mock_bin:/usr/bin:/bin" HOME="$home" MISE_LOG="$tmpdir/mise.log" CURL_LOG="$tmpdir/curl.log" sh "$tmpdir/pi/install.sh"
+external_home="$tmpdir/external-home"
+external_bin="$tmpdir/external-bin"
+mkdir -p "$external_home" "$external_bin"
+printf '%s\n' '#!/bin/sh' 'exit 0' > "$external_bin/pi"
+chmod +x "$external_bin/pi"
+external_pi_output=$(PATH="$external_bin:$mock_bin:/usr/bin:/bin" HOME="$external_home" MISE_LOG="$tmpdir/external-mise.log" CURL_LOG="$tmpdir/external-curl.log" sh "$tmpdir/pi/install.sh")
+printf '%s\n' "$external_pi_output" | grep -Fqx "Pi already installed: $external_bin/pi"
+test ! -e "$external_home/.local/bin/pi"
 PATH="$mock_bin:$PATH" HOME="$home" CURL_LOG="$tmpdir/curl.log" sh "$tmpdir/codex/install.sh"
 
 test "$(readlink "$home/.config/herdr/config.toml")" = "$tmpdir/herdr/config.toml"
@@ -127,7 +135,7 @@ test "$(readlink "$home/.local/bin/tree-sitter")" = "$home/.local/share/pnpm/bin
 test "$(readlink "$home/.config/nvim")" = "$tmpdir/nvim/nvim"
 grep -qx 'unuse --global pnpm' "$tmpdir/mise.log"
 grep -qx 'use --global node@latest npm:pnpm@11.9.0' "$tmpdir/mise.log"
-grep -qx 'exec node@latest npm:pnpm@latest -- pnpm add --global tree-sitter-cli' "$tmpdir/mise.log"
+grep -qx 'exec node@latest npm:pnpm@11.9.0 -- pnpm add --global tree-sitter-cli' "$tmpdir/mise.log"
 test -x "$mock_bin/gh"
 grep -qx 'install gh --classic' "$tmpdir/snap.log"
 test -x "$home/.local/bin/rtk"
