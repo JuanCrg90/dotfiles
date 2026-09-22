@@ -16,6 +16,7 @@ All installers are idempotent, cross-platform where applicable, and follow POSIX
 ```
 dotfiles/
 ├── git/              # Git configuration (config symlinks + gitignore)
+├── gh/               # GitHub CLI installer
 ├── zsh/              # Zsh + Oh My Zsh + Powerlevel10k theme
 ├── nvim/             # Neovim configuration + installer
 ├── herdr/            # Herdr terminal multiplexer config
@@ -48,10 +49,13 @@ sh ~/.dotfiles/zsh/install.sh
 # 4. Install Git config
 sh ~/.dotfiles/git/install.sh
 
-# 5. Install Herdr
+# 5. Install GitHub CLI
+sh ~/.dotfiles/gh/install.sh
+
+# 6. Install Herdr
 sh ~/.dotfiles/herdr/install.sh
 
-# 6. Install iTerm2 profile (macOS only)
+# 7. Install iTerm2 profile (macOS only)
 # Copy iterm/Profiles.json to your iTerm2 preferences via:
 # iTerm2 → Settings → Profiles → Import
 ```
@@ -71,7 +75,7 @@ This script automates the complete homelab setup:
 
 1. **NVIDIA drivers + CUDA toolkit** (optional: skip with `HOMELAB_SKIP_NVIDIA=1`)
 2. **System tools** (build-essential, git, cmake, curl, wget, ffmpeg, nvtop, htop, openssh-server, tailscale, fwupd, zsh)
-3. **Dotfiles** (mise → herdr → nvim → zsh → git)
+3. **Dotfiles** (mise → herdr → nvim → zsh → git → gh)
 4. **ML/AI tools** (Ollama, llama.cpp with CUDA, Hugging Face CLI, llama-swap)
 5. **Docker** (via snap)
 
@@ -82,6 +86,7 @@ Each step is independently skippable via `HOMELAB_SKIP_*` environment variables.
 | Directory | macOS | Pop!_OS Linux |
 |-----------|-------|---------------|
 | `git/` | ✅ | ✅ |
+| `gh/` | ✅ (Homebrew) | ✅ (Snap) |
 | `zsh/` | ✅ | ✅ |
 | `nvim/` | ✅ (Homebrew) | ✅ (Snap + APT + pnpm) |
 | `herdr/` | ✅ (Homebrew) | ✅ (official installer) |
@@ -115,6 +120,14 @@ Requires `zsh`, `git`, and `mise` to be installed first (checked at runtime). Cl
 ### Git
 
 Symlinks `gitconfig` and `.gitignore_global`. Does not install `git` itself — assumes it's already available.
+
+### GitHub CLI
+
+**macOS:** Installed via Homebrew (`brew install gh`).
+
+**Pop!_OS Linux:** Installed via Snap (`sudo snap install gh --classic`).
+
+Use `gh auth login` after installation to authenticate each device.
 
 ### Herdr
 

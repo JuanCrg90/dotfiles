@@ -151,7 +151,26 @@ install_git() {
 }
 
 # ============================================================
-# 9. Ollama
+# 9. Dotfiles: GitHub CLI
+# ============================================================
+install_gh() {
+  if [ "${HOMELAB_SKIP_DOTFILES:-0}" = 1 ]; then
+    return
+  fi
+
+  gh_dir="$script_dir/../gh"
+  if [ -d "$gh_dir" ] && [ -x "$gh_dir/install.sh" ]; then
+    printf '%s\n' "Running gh/install.sh..."
+    sh "$gh_dir/install.sh"
+  elif command -v gh >/dev/null 2>&1 || [ -x /snap/bin/gh ]; then
+    printf '%s\n' "GitHub CLI already installed"
+  else
+    printf '%s\n' "Warning: gh/install.sh not found and GitHub CLI not installed."
+  fi
+}
+
+# ============================================================
+# 10. Ollama
 # ============================================================
 install_ollama() {
   if [ "${HOMELAB_SKIP_OLLAMA:-0}" = 1 ]; then
@@ -169,7 +188,7 @@ install_ollama() {
 }
 
 # ============================================================
-# 10. llama.cpp (CUDA build)
+# 11. llama.cpp (CUDA build)
 # ============================================================
 install_llama_cpp() {
   if [ "${HOMELAB_SKIP_LLAMA_CPP:-0}" = 1 ]; then
@@ -195,7 +214,7 @@ install_llama_cpp() {
 }
 
 # ============================================================
-# 11. Hugging Face CLI
+# 12. Hugging Face CLI
 # ============================================================
 install_hf_cli() {
   if [ "${HOMELAB_SKIP_HF_CLI:-0}" = 1 ]; then
@@ -213,7 +232,7 @@ install_hf_cli() {
 }
 
 # ============================================================
-# 12. llama-swap
+# 13. llama-swap
 # ============================================================
 install_llama_swap() {
   if [ "${HOMELAB_SKIP_LLAMA_SWAP:-0}" = 1 ]; then
@@ -235,7 +254,7 @@ install_llama_swap() {
 }
 
 # ============================================================
-# 13. Docker (snap)
+# 14. Docker (snap)
 # ============================================================
 install_docker() {
   if [ "${HOMELAB_SKIP_DOCKER:-0}" = 1 ]; then
@@ -278,12 +297,13 @@ main() {
   install_llama_swap
   install_docker
 
-  # Dotfiles (order: mise → herdr → nvim → zsh → git)
+  # Dotfiles (order: mise → herdr → nvim → zsh → git → gh)
   install_mise
   install_herdr
   install_nvim
   install_zsh
   install_git
+  install_gh
 
   printf '%s\n' ""
   printf '%s\n' "========================================"
