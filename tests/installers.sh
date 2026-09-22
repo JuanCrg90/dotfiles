@@ -9,12 +9,14 @@ trap 'trash "$tmpdir"' EXIT HUP INT TERM
 home="$tmpdir/home"
 mock_bin="$tmpdir/bin"
 
-mkdir -p "$home" "$mock_bin" "$tmpdir/gh" "$tmpdir/herdr" "$tmpdir/mise" "$tmpdir/nvim/nvim" "$tmpdir/rtk" "$tmpdir/iterm"
+mkdir -p "$home" "$mock_bin" "$tmpdir/gh" "$tmpdir/herdr" "$tmpdir/mise" "$tmpdir/nvim/nvim" "$tmpdir/pi" "$tmpdir/codex" "$tmpdir/rtk" "$tmpdir/iterm"
 cp "$repo_dir/gh/install.sh" "$tmpdir/gh/install.sh"
 cp "$repo_dir/herdr/config.toml" "$tmpdir/herdr/config.toml"
 cp "$repo_dir/herdr/install.sh" "$tmpdir/herdr/install.sh"
 cp "$repo_dir/mise/install.sh" "$tmpdir/mise/install.sh"
 cp "$repo_dir/nvim/install.sh" "$tmpdir/nvim/install.sh"
+cp "$repo_dir/pi/install.sh" "$tmpdir/pi/install.sh"
+cp "$repo_dir/codex/install.sh" "$tmpdir/codex/install.sh"
 cp "$repo_dir/rtk/install.sh" "$tmpdir/rtk/install.sh"
 cp "$repo_dir/install.sh" "$tmpdir/install.sh"
 cp "$repo_dir/iterm/Profiles.json" "$tmpdir/iterm/Profiles.json"
@@ -55,8 +57,23 @@ mock nvim 'printf "%s\\n" "NVIM v0.12.5"'
 mock herdr 'exit 0'
 mock fdfind 'exit 0'
 mock curl '
-printf "%s\\n" "$*" >> "$RTK_LOG"
-printf "%s\\n" "mkdir -p \"\$RTK_INSTALL_DIR\"" "printf \"%s\\\\n\" \"#!/bin/sh\" \"exit 0\" > \"\$RTK_INSTALL_DIR/rtk\"" "chmod +x \"\$RTK_INSTALL_DIR/rtk\""
+printf "%s\\n" "$*" >> "$CURL_LOG"
+case "$*" in
+  *"rtk-ai/rtk"*)
+    printf "%s\\n" "$*" >> "$RTK_LOG"
+    printf "%s\\n" "mkdir -p \"\$RTK_INSTALL_DIR\"" "printf \"%s\\\\n\" \"#!/bin/sh\" \"exit 0\" > \"\$RTK_INSTALL_DIR/rtk\"" "chmod +x \"\$RTK_INSTALL_DIR/rtk\""
+    ;;
+  *"pi.dev/install.sh"*)
+    printf "%s\\n" "mkdir -p \"\$HOME/.local/bin\"" ": > \"\$HOME/.local/bin/pi\"" "chmod +x \"\$HOME/.local/bin/pi\""
+    ;;
+  *"chatgpt.com/codex/install.sh"*)
+    printf "%s\\n" "case \":\$PATH:\" in *\":\$HOME/.local/bin:\"*) ;; *) printf \"%s\\\\n\" modified >> \"\$HOME/.zshrc\" ;; esac" "mkdir -p \"\$HOME/.local/bin\"" ": > \"\$HOME/.local/bin/codex\"" "chmod +x \"\$HOME/.local/bin/codex\""
+    ;;
+  *)
+    printf "unexpected curl command: %s\\n" "$*" >&2
+    exit 1
+    ;;
+esac
 '
 mock mise '
 case "$*" in
@@ -78,6 +95,10 @@ case "$*" in
   "exec node@latest npm:pnpm@latest -- pnpm bin --global")
     printf "%s\\n" "$PNPM_HOME/bin"
     ;;
+  "exec node@latest -- sh -c curl -fsSL https://pi.dev/install.sh | sh")
+    printf "%s\\n" "$*" >> "$MISE_LOG"
+    "$4" "$5" "$6"
+    ;;
   *)
     printf "unexpected mise command: %s\\n" "$*" >&2
     exit 1
@@ -93,7 +114,10 @@ PATH="$mock_bin:$PATH" HOME="$home" sh "$tmpdir/herdr/install.sh"
 PATH="$mock_bin:$PATH" HOME="$home" MISE_LOG="$tmpdir/mise.log" sh "$tmpdir/mise/install.sh"
 PATH="$mock_bin:$PATH" HOME="$home" MISE_LOG="$tmpdir/mise.log" sh "$tmpdir/nvim/install.sh"
 PATH="$mock_bin:/usr/bin:/bin" HOME="$home" MOCK_BIN="$mock_bin" SNAP_LOG="$tmpdir/snap.log" sh "$tmpdir/gh/install.sh"
-PATH="$mock_bin:/usr/bin:/bin" HOME="$home" RTK_LOG="$tmpdir/rtk.log" sh "$tmpdir/rtk/install.sh"
+PATH="$mock_bin:/usr/bin:/bin" HOME="$home" RTK_LOG="$tmpdir/rtk.log" CURL_LOG="$tmpdir/curl.log" sh "$tmpdir/rtk/install.sh"
+printf '%s\n' 'existing zsh config' > "$home/.zshrc"
+PATH="$mock_bin:$PATH" HOME="$home" MISE_LOG="$tmpdir/mise.log" CURL_LOG="$tmpdir/curl.log" sh "$tmpdir/pi/install.sh"
+PATH="$mock_bin:$PATH" HOME="$home" CURL_LOG="$tmpdir/curl.log" sh "$tmpdir/codex/install.sh"
 
 test "$(readlink "$home/.config/herdr/config.toml")" = "$tmpdir/herdr/config.toml"
 herdr_backup=$(find "$home/.config/herdr" -maxdepth 1 -type l -name 'config.toml.backup.*' -print)
@@ -108,8 +132,16 @@ test -x "$mock_bin/gh"
 grep -qx 'install gh --classic' "$tmpdir/snap.log"
 test -x "$home/.local/bin/rtk"
 grep -Fqx -- '-fsSL https://raw.githubusercontent.com/rtk-ai/rtk/refs/heads/master/install.sh' "$tmpdir/rtk.log"
+test -x "$home/.local/bin/pi"
+test -x "$home/.local/bin/codex"
+grep -Fqx 'exec node@latest -- sh -c curl -fsSL https://pi.dev/install.sh | sh' "$tmpdir/mise.log"
+grep -Fqx -- '-fsSL https://pi.dev/install.sh' "$tmpdir/curl.log"
+grep -Fqx -- '-fsSL https://chatgpt.com/codex/install.sh' "$tmpdir/curl.log"
+grep -Fqx 'existing zsh config' "$home/.zshrc"
 
-output=$(PATH="$mock_bin:$PATH" HOME="$home" sh "$tmpdir/install.sh" --skip-mise --skip-herdr --skip-nvim --skip-zsh --skip-git --skip-gh --skip-rtk --skip-iterm)
+output=$(PATH="$mock_bin:$PATH" HOME="$home" sh "$tmpdir/install.sh" --skip-mise --skip-pi --skip-codex --skip-herdr --skip-nvim --skip-zsh --skip-git --skip-gh --skip-rtk --skip-iterm)
+printf '%s\n' "$output" | grep -Fqx '[SKIP] pi'
+printf '%s\n' "$output" | grep -Fqx '[SKIP] codex'
 printf '%s\n' "$output" | grep -Fqx '[SKIP] uhk (use --with-uhk)'
 
 mock_bin="$tmpdir/mac-bin"

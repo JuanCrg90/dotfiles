@@ -75,7 +75,45 @@ install_mise() {
 }
 
 # ============================================================
-# 5. Dotfiles: herdr
+# 5. Dotfiles: Pi (primary AI development harness)
+# ============================================================
+install_pi() {
+  if [ "${HOMELAB_SKIP_DOTFILES:-0}" = 1 ]; then
+    return
+  fi
+
+  pi_dir="$script_dir/../pi"
+  if [ -d "$pi_dir" ] && [ -x "$pi_dir/install.sh" ]; then
+    printf '%s\n' "Running pi/install.sh..."
+    sh "$pi_dir/install.sh"
+  elif [ -x "$home/.local/bin/pi" ]; then
+    printf '%s\n' "Pi already installed: $home/.local/bin/pi"
+  else
+    printf '%s\n' "Warning: pi/install.sh not found and Pi not installed."
+  fi
+}
+
+# ============================================================
+# 6. Dotfiles: Codex (secondary AI development harness)
+# ============================================================
+install_codex() {
+  if [ "${HOMELAB_SKIP_DOTFILES:-0}" = 1 ]; then
+    return
+  fi
+
+  codex_dir="$script_dir/../codex"
+  if [ -d "$codex_dir" ] && [ -x "$codex_dir/install.sh" ]; then
+    printf '%s\n' "Running codex/install.sh..."
+    sh "$codex_dir/install.sh"
+  elif [ -x "$home/.local/bin/codex" ]; then
+    printf '%s\n' "Codex already installed: $home/.local/bin/codex"
+  else
+    printf '%s\n' "Warning: codex/install.sh not found and Codex not installed."
+  fi
+}
+
+# ============================================================
+# 7. Dotfiles: herdr
 # ============================================================
 install_herdr() {
   if [ "${HOMELAB_SKIP_DOTFILES:-0}" = 1 ]; then
@@ -94,7 +132,7 @@ install_herdr() {
 }
 
 # ============================================================
-# 6. Dotfiles: nvim (requires mise + apt packages)
+# 8. Dotfiles: nvim (requires mise + apt packages)
 # ============================================================
 install_nvim() {
   if [ "${HOMELAB_SKIP_DOTFILES:-0}" = 1 ]; then
@@ -113,7 +151,7 @@ install_nvim() {
 }
 
 # ============================================================
-# 7. Dotfiles: zsh (requires zsh + git + mise)
+# 9. Dotfiles: zsh (requires zsh + git + mise)
 # ============================================================
 install_zsh() {
   if [ "${HOMELAB_SKIP_DOTFILES:-0}" = 1 ]; then
@@ -132,7 +170,7 @@ install_zsh() {
 }
 
 # ============================================================
-# 8. Dotfiles: git (config symlinks only)
+# 10. Dotfiles: git (config symlinks only)
 # ============================================================
 install_git() {
   if [ "${HOMELAB_SKIP_DOTFILES:-0}" = 1 ]; then
@@ -151,7 +189,7 @@ install_git() {
 }
 
 # ============================================================
-# 9. Dotfiles: GitHub CLI
+# 11. Dotfiles: GitHub CLI
 # ============================================================
 install_gh() {
   if [ "${HOMELAB_SKIP_DOTFILES:-0}" = 1 ]; then
@@ -170,7 +208,7 @@ install_gh() {
 }
 
 # ============================================================
-# 10. Dotfiles: rtk
+# 12. Dotfiles: rtk
 # ============================================================
 install_rtk() {
   if [ "${HOMELAB_SKIP_DOTFILES:-0}" = 1 ]; then
@@ -189,7 +227,7 @@ install_rtk() {
 }
 
 # ============================================================
-# 11. Ollama
+# 13. Ollama
 # ============================================================
 install_ollama() {
   if [ "${HOMELAB_SKIP_OLLAMA:-0}" = 1 ]; then
@@ -207,7 +245,7 @@ install_ollama() {
 }
 
 # ============================================================
-# 12. llama.cpp (CUDA build)
+# 14. llama.cpp (CUDA build)
 # ============================================================
 install_llama_cpp() {
   if [ "${HOMELAB_SKIP_LLAMA_CPP:-0}" = 1 ]; then
@@ -233,7 +271,7 @@ install_llama_cpp() {
 }
 
 # ============================================================
-# 13. Hugging Face CLI
+# 15. Hugging Face CLI
 # ============================================================
 install_hf_cli() {
   if [ "${HOMELAB_SKIP_HF_CLI:-0}" = 1 ]; then
@@ -251,7 +289,7 @@ install_hf_cli() {
 }
 
 # ============================================================
-# 14. llama-swap
+# 16. llama-swap
 # ============================================================
 install_llama_swap() {
   if [ "${HOMELAB_SKIP_LLAMA_SWAP:-0}" = 1 ]; then
@@ -273,7 +311,7 @@ install_llama_swap() {
 }
 
 # ============================================================
-# 15. Docker (snap)
+# 17. Docker (snap)
 # ============================================================
 install_docker() {
   if [ "${HOMELAB_SKIP_DOCKER:-0}" = 1 ]; then
@@ -316,8 +354,10 @@ main() {
   install_llama_swap
   install_docker
 
-  # Dotfiles (order: mise → herdr → nvim → zsh → git → gh → rtk)
+  # Dotfiles (order: mise → pi → codex → herdr → nvim → zsh → git → gh → rtk)
   install_mise
+  install_pi
+  install_codex
   install_herdr
   install_nvim
   install_zsh
