@@ -15,4 +15,12 @@ if (( $+commands[mise] )); then
   eval "$(mise activate zsh)"
 fi
 
+# pnpm v11 installs global binaries in a platform-specific bin directory.
+# Resolve it after mise activates the managed pnpm executable.
+if (( $+commands[pnpm] )); then
+  pnpm_global_bin="$(pnpm bin --global 2>/dev/null)" || pnpm_global_bin=
+  [[ -d "$pnpm_global_bin" ]] && path=("$pnpm_global_bin" $path)
+  unset pnpm_global_bin
+fi
+
 [[ -r "$HOME/.zsh.local" ]] && source "$HOME/.zsh.local"

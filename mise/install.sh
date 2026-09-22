@@ -41,7 +41,8 @@ install_mise() {
 setup_pnpm() {
   printf '%s\n' "Configuring Node.js and pnpm through mise..."
   mise unuse --global pnpm || true
-  mise use --global node@latest npm:pnpm@latest
+  # pnpm v12 uses a shell launcher incompatible with mise's npm shim.
+  mise use --global node@latest npm:pnpm@11.9.0
 }
 
 install_mise

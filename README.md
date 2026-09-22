@@ -133,7 +133,10 @@ The `tree-sitter` binary is required by Neovim's native LSP and language support
 
 **Pop!_OS Linux:** Installed via Snap (`sudo snap install mise --classic`).
 
-Mise manages `pnpm` globally, which is used by Neovim on Linux for `tree-sitter-cli`.
+Mise manages pnpm 11.9.0 globally, which is used by Neovim on Linux for
+`tree-sitter-cli`. Zsh adds the platform-specific global binary directory
+reported by `pnpm bin --global`, so user-installed Node CLIs work on macOS and
+Pop!_OS without local shell overrides.
 
 ### Pi (primary AI development harness)
 

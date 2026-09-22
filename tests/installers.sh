@@ -80,7 +80,7 @@ case "$*" in
   "unuse --global pnpm")
     printf "%s\\n" "$*" >> "$MISE_LOG"
     ;;
-  "use --global node@latest npm:pnpm@latest")
+  "use --global node@latest npm:pnpm@11.9.0")
     printf "%s\\n" "$*" >> "$MISE_LOG"
     ;;
   "--version")
@@ -126,7 +126,7 @@ test -L "$home/.local/bin/tree-sitter"
 test "$(readlink "$home/.local/bin/tree-sitter")" = "$home/.local/share/pnpm/bin/tree-sitter"
 test "$(readlink "$home/.config/nvim")" = "$tmpdir/nvim/nvim"
 grep -qx 'unuse --global pnpm' "$tmpdir/mise.log"
-grep -qx 'use --global node@latest npm:pnpm@latest' "$tmpdir/mise.log"
+grep -qx 'use --global node@latest npm:pnpm@11.9.0' "$tmpdir/mise.log"
 grep -qx 'exec node@latest npm:pnpm@latest -- pnpm add --global tree-sitter-cli' "$tmpdir/mise.log"
 test -x "$mock_bin/gh"
 grep -qx 'install gh --classic' "$tmpdir/snap.log"
