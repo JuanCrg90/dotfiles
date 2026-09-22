@@ -5,18 +5,14 @@ set -eu
 repo_dir=$(CDPATH= cd "$(dirname "$0")/.." && pwd)
 options_file="$repo_dir/nvim/nvim/lua/config/options.lua"
 
-assert_clipboard() {
-  expected_clipboard=$1
-  shift
+env -i HOME="$HOME" PATH="$PATH" OPTIONS_FILE="$options_file" \
+  nvim --headless -u NONE \
+  '+lua local function check(value) if not value then vim.cmd("cquit 1") end end; dofile(vim.env.OPTIONS_FILE); check(vim.o.clipboard == "unnamedplus"); check(vim.g.clipboard == nil); vim.cmd("qa!")'
 
-  env -i HOME="$HOME" PATH="$PATH" OPTIONS_FILE="$options_file" EXPECTED_CLIPBOARD="$expected_clipboard" "$@" \
-    nvim --headless -u NONE \
-    '+lua dofile(vim.env.OPTIONS_FILE); local expected = vim.env.EXPECTED_CLIPBOARD == "" and nil or vim.env.EXPECTED_CLIPBOARD; assert(vim.o.clipboard == "unnamedplus"); assert(vim.g.clipboard == expected)' \
-    +qa
-}
-
-assert_clipboard ''
-assert_clipboard 'osc52' SSH_CONNECTION='127.0.0.1 22 127.0.0.1 22'
+env -i HOME="$HOME" PATH="$PATH" OPTIONS_FILE="$options_file" \
+  SSH_CONNECTION='127.0.0.1 22 127.0.0.1 22' \
+  nvim --headless -u NONE \
+  '+lua local function check(value) if not value then vim.cmd("cquit 1") end end; package.loaded["vim.ui.clipboard.osc52"] = { copy = function(register) return function(lines) vim.g.osc52_register = register; vim.g.osc52_contents = table.concat(lines, "\\n") end end }; dofile(vim.env.OPTIONS_FILE); check(vim.o.clipboard == ""); check(vim.g.clipboard == nil); vim.api.nvim_buf_set_lines(0, 0, -1, false, { "clipboard test" }); vim.cmd("normal! gg0yy"); check(vim.g.osc52_register == "+"); check(vim.g.osc52_contents == "clipboard test"); vim.cmd("normal! p"); check(table.concat(vim.api.nvim_buf_get_lines(0, 0, -1, false), "\\n") == "clipboard test\\nclipboard test"); vim.cmd("qa!")'
 
 grep -Fqx '  or (vim.env.HERDR_PANE_ID ~= nil and vim.fn.has("macunix") == 0)' "$options_file"
 

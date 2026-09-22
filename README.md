@@ -136,15 +136,15 @@ The `tree-sitter` binary is required by Neovim's native LSP and language support
 #### Remote Clipboard
 
 Local Neovim uses its native system clipboard provider. In SSH sessions and
-Linux Herdr panes, Neovim uses its built-in OSC 52 provider so yanks reach the
-clipboard of the terminal running on the local machine. This requires a local
-terminal emulator that supports OSC 52 clipboard writes and permits terminal
-applications to access the clipboard.
+Linux Herdr panes, remote yanks use Neovim's built-in OSC 52 copy callback, so
+they reach the clipboard of the terminal running on the local machine. This
+requires a local terminal emulator that supports OSC 52 clipboard writes and
+permits terminal applications to access the clipboard.
 
-For remote paste, use the terminal's normal paste shortcut (for example,
-<kbd>Cmd</kbd>+<kbd>V</kbd> in iTerm2); it sends the clipboard text to the
-remote Neovim instance. OSC 52 clipboard reads are terminal-dependent and may
-be disabled for security.
+Remote `p` deliberately uses Neovim's internal register, avoiding an OSC 52
+clipboard-read query that may time out through the Herdr bridge. To paste from
+the local system clipboard into a remote pane, use the terminal's normal paste
+shortcut (for example, <kbd>Cmd</kbd>+<kbd>V</kbd> in iTerm2).
 
 Verify the write path from a remote Herdr pane before relying on it:
 
