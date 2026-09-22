@@ -9,15 +9,19 @@ home=${HOME:?HOME must be set}
 # All-in-One Dotfiles Installer
 # ============================================================
 # Installs all dotfiles in dependency order:
-#   mise → herdr → nvim → zsh → git → iterm → uhk
+#   mise → herdr → nvim → zsh → git → iterm
 #
 # Usage:
-#   sh ~/dotfiles/install.sh              # Install all
+#   sh ~/dotfiles/install.sh              # Install all standard dotfiles
 #   sh ~/dotfiles/install.sh --skip-nvim  # Skip Neovim
+#   sh ~/dotfiles/install.sh --with-uhk   # Also install UHK config
 #
 # Available skips:
 #   --skip-mise, --skip-herdr, --skip-nvim,
-#   --skip-zsh, --skip-git, --skip-iterm, --skip-uhk
+#   --skip-zsh, --skip-git, --skip-iterm
+#
+# UHK is opt-in because its configuration only applies when the keyboard is
+# connected.
 # ============================================================
 
 SKIP_MISE=0
@@ -26,7 +30,7 @@ SKIP_NVIM=0
 SKIP_ZSH=0
 SKIP_GIT=0
 SKIP_ITERM=0
-SKIP_UHK=0
+INSTALL_UHK=0
 
 parse_args() {
   for arg in "$@"; do
@@ -37,9 +41,9 @@ parse_args() {
       --skip-zsh)   SKIP_ZSH=1 ;;
       --skip-git)   SKIP_GIT=1 ;;
       --skip-iterm) SKIP_ITERM=1 ;;
-      --skip-uhk)   SKIP_UHK=1 ;;
+      --with-uhk)   INSTALL_UHK=1 ;;
       --help|-h)
-        printf '%s\n' "Usage: $0 [--skip-mise] [--skip-herdr] [--skip-nvim] [--skip-zsh] [--skip-git] [--skip-iterm] [--skip-uhk]"
+        printf '%s\n' "Usage: $0 [--skip-mise] [--skip-herdr] [--skip-nvim] [--skip-zsh] [--skip-git] [--skip-iterm] [--with-uhk]"
         printf '%s\n' ""
         printf '%s\n' "All installers are idempotent — safe to run multiple times."
         exit 0
@@ -94,12 +98,6 @@ run_installer() {
         return
       fi
       ;;
-    uhk)
-      if [ "$SKIP_UHK" = 1 ]; then
-        printf '%s\n' "[SKIP] uhk"
-        return
-      fi
-      ;;
   esac
 
   installer="$path/install.sh"
@@ -113,6 +111,9 @@ run_installer() {
     printf '%s\n' "✓ $name installed"
   else
     printf '%s\n' "✗ $name failed (see output above)" >&2
+    if [ "$name" = zsh ]; then
+      printf '%s\n' "  Existing Zsh files are left unchanged; move them aside manually to adopt this config." >&2
+    fi
     return 1
   fi
   printf '\n'
@@ -167,8 +168,11 @@ main() {
   # Platform-specific installers
   install_iterm || errors=$((errors + 1))
 
-  # UHK (platform-agnostic)
-  run_installer uhk "$script_dir/uhk" || errors=$((errors + 1))
+  if [ "$INSTALL_UHK" = 1 ]; then
+    run_installer uhk "$script_dir/uhk" || errors=$((errors + 1))
+  else
+    printf '%s\n' "[SKIP] uhk (use --with-uhk)"
+  fi
 
   printf '%s\n' "========================================"
   if [ "$errors" -gt 0 ]; then

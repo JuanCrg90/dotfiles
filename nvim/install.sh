@@ -31,7 +31,21 @@ install_tree_sitter() {
     exit 1
   fi
 
-  mise install tree-sitter-cli
+  pnpm_home="$home/.local/share/pnpm"
+  local_bin="$home/.local/bin"
+  PNPM_HOME="$pnpm_home"
+  PATH="$pnpm_home:$pnpm_home/bin:$PATH"
+  export PNPM_HOME PATH
+
+  mise exec pnpm@latest -- pnpm add --global tree-sitter-cli
+  global_bin=$(mise exec pnpm@latest -- pnpm bin --global)
+  if [ ! -x "$global_bin/tree-sitter" ]; then
+    printf 'tree-sitter-cli installed but binary missing at %s/tree-sitter.\n' "$global_bin" >&2
+    exit 1
+  fi
+
+  mkdir -p "$local_bin"
+  ln -sf "$global_bin/tree-sitter" "$local_bin/tree-sitter"
 }
 
 install_packages() {

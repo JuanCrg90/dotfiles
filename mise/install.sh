@@ -42,7 +42,7 @@ install_mise() {
 }
 
 setup_pnpm() {
-  mise use --global pnpm >/dev/null 2>&1
+  mise use --global pnpm@latest >/dev/null 2>&1
   mise trust "$script_dir" 2>/dev/null || true
 }
 
@@ -50,4 +50,4 @@ install_mise
 setup_pnpm
 
 printf '%s\n' "mise installed: $(command -v mise) ($(mise --version 2>/dev/null || echo "version unknown"))"
-printf '%s\n' "pnpm managed by mise; run 'mise install pnpm' to ensure pnpm is available."
+printf '%s\n' "pnpm is managed by mise and used for global CLI packages."
