@@ -9,7 +9,7 @@ trap 'trash "$tmpdir"' EXIT HUP INT TERM
 home="$tmpdir/home"
 mock_bin="$tmpdir/bin"
 
-mkdir -p "$home" "$mock_bin" "$tmpdir/gh" "$tmpdir/herdr" "$tmpdir/mise" "$tmpdir/nvim/nvim" "$tmpdir/pi" "$tmpdir/codex" "$tmpdir/rtk" "$tmpdir/iterm"
+mkdir -p "$home" "$mock_bin" "$tmpdir/gh" "$tmpdir/herdr" "$tmpdir/mise" "$tmpdir/nvim/nvim" "$tmpdir/pi" "$tmpdir/codex" "$tmpdir/agy" "$tmpdir/rtk" "$tmpdir/iterm"
 cp "$repo_dir/gh/install.sh" "$tmpdir/gh/install.sh"
 cp "$repo_dir/herdr/config.toml" "$tmpdir/herdr/config.toml"
 cp "$repo_dir/herdr/install.sh" "$tmpdir/herdr/install.sh"
@@ -17,6 +17,7 @@ cp "$repo_dir/mise/install.sh" "$tmpdir/mise/install.sh"
 cp "$repo_dir/nvim/install.sh" "$tmpdir/nvim/install.sh"
 cp "$repo_dir/pi/install.sh" "$tmpdir/pi/install.sh"
 cp "$repo_dir/codex/install.sh" "$tmpdir/codex/install.sh"
+cp "$repo_dir/agy/install.sh" "$tmpdir/agy/install.sh"
 cp "$repo_dir/rtk/install.sh" "$tmpdir/rtk/install.sh"
 cp "$repo_dir/install.sh" "$tmpdir/install.sh"
 cp "$repo_dir/iterm/Profiles.json" "$tmpdir/iterm/Profiles.json"
@@ -68,6 +69,9 @@ case "$*" in
     ;;
   *"chatgpt.com/codex/install.sh"*)
     printf "%s\\n" "case \":\$PATH:\" in *\":\$HOME/.local/bin:\"*) ;; *) printf \"%s\\\\n\" modified >> \"\$HOME/.zshrc\" ;; esac" "mkdir -p \"\$HOME/.local/bin\"" ": > \"\$HOME/.local/bin/codex\"" "chmod +x \"\$HOME/.local/bin/codex\""
+    ;;
+  *"antigravity.google/cli/install.sh"*)
+    printf "%s\\n" "mkdir -p \"\$HOME/.local/bin\"" ": > \"\$HOME/.local/bin/agy\"" "chmod +x \"\$HOME/.local/bin/agy\""
     ;;
   *)
     printf "unexpected curl command: %s\\n" "$*" >&2
@@ -126,6 +130,7 @@ external_pi_output=$(PATH="$external_bin:$mock_bin:/usr/bin:/bin" HOME="$externa
 printf '%s\n' "$external_pi_output" | grep -Fqx "Pi already installed: $external_bin/pi"
 test ! -e "$external_home/.local/bin/pi"
 PATH="$mock_bin:$PATH" HOME="$home" CURL_LOG="$tmpdir/curl.log" sh "$tmpdir/codex/install.sh"
+PATH="$mock_bin:/usr/bin:/bin" HOME="$home" CURL_LOG="$tmpdir/curl.log" sh "$tmpdir/agy/install.sh"
 
 test "$(readlink "$home/.config/herdr/config.toml")" = "$tmpdir/herdr/config.toml"
 herdr_backup=$(find "$home/.config/herdr" -maxdepth 1 -type l -name 'config.toml.backup.*' -print)
@@ -142,14 +147,17 @@ test -x "$home/.local/bin/rtk"
 grep -Fqx -- '-fsSL https://raw.githubusercontent.com/rtk-ai/rtk/refs/heads/master/install.sh' "$tmpdir/rtk.log"
 test -x "$home/.local/bin/pi"
 test -x "$home/.local/bin/codex"
+test -x "$home/.local/bin/agy"
 grep -Fqx 'exec node@latest -- sh -c curl -fsSL https://pi.dev/install.sh | sh' "$tmpdir/mise.log"
 grep -Fqx -- '-fsSL https://pi.dev/install.sh' "$tmpdir/curl.log"
 grep -Fqx -- '-fsSL https://chatgpt.com/codex/install.sh' "$tmpdir/curl.log"
+grep -Fqx -- '-fsSL https://antigravity.google/cli/install.sh' "$tmpdir/curl.log"
 grep -Fqx 'existing zsh config' "$home/.zshrc"
 
-output=$(PATH="$mock_bin:$PATH" HOME="$home" sh "$tmpdir/install.sh" --skip-mise --skip-pi --skip-codex --skip-herdr --skip-nvim --skip-zsh --skip-git --skip-gh --skip-rtk --skip-iterm)
+output=$(PATH="$mock_bin:$PATH" HOME="$home" sh "$tmpdir/install.sh" --skip-mise --skip-pi --skip-codex --skip-agy --skip-herdr --skip-nvim --skip-zsh --skip-git --skip-gh --skip-rtk --skip-iterm)
 printf '%s\n' "$output" | grep -Fqx '[SKIP] pi'
 printf '%s\n' "$output" | grep -Fqx '[SKIP] codex'
+printf '%s\n' "$output" | grep -Fqx '[SKIP] agy'
 printf '%s\n' "$output" | grep -Fqx '[SKIP] uhk (use --with-uhk)'
 
 mock_bin="$tmpdir/mac-bin"

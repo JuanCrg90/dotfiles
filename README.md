@@ -21,6 +21,7 @@ dotfiles/
 ├── gh/               # GitHub CLI installer
 ├── pi/               # Pi primary AI development harness installer
 ├── codex/            # Codex secondary AI development harness installer
+├── agy/              # Antigravity CLI installer
 ├── rtk/              # rtk command-wrapper installer
 ├── zsh/              # Zsh + Oh My Zsh + Powerlevel10k theme
 ├── nvim/             # Neovim configuration + installer
@@ -43,7 +44,7 @@ git clone git@github.com:JuanCrg90/dotfiles.git ~/.dotfiles
 sh ~/.dotfiles/install.sh
 ```
 
-It installs dependencies in this order: mise → Pi → Codex → Herdr → Neovim →
+It installs dependencies in this order: mise → Pi → Codex → agy → Herdr → Neovim →
 Zsh → Git → GitHub CLI → rtk. UHK remains opt-in (`--with-uhk`).
 
 Use `sh ~/.dotfiles/install.sh --help` to list component skip flags. The
@@ -62,25 +63,28 @@ sh ~/.dotfiles/pi/install.sh
 # 3. Install Codex (secondary AI development harness)
 sh ~/.dotfiles/codex/install.sh
 
-# 4. Install Neovim + plugins
+# 4. Install agy (Antigravity CLI)
+sh ~/.dotfiles/agy/install.sh
+
+# 5. Install Neovim + plugins
 sh ~/.dotfiles/nvim/install.sh
 
-# 5. Install Zsh + Oh My Zsh
+# 6. Install Zsh + Oh My Zsh
 sh ~/.dotfiles/zsh/install.sh
 
-# 6. Install Git config
+# 7. Install Git config
 sh ~/.dotfiles/git/install.sh
 
-# 7. Install GitHub CLI
+# 8. Install GitHub CLI
 sh ~/.dotfiles/gh/install.sh
 
-# 8. Install rtk
+# 9. Install rtk
 sh ~/.dotfiles/rtk/install.sh
 
-# 9. Install Herdr
+# 10. Install Herdr
 sh ~/.dotfiles/herdr/install.sh
 
-# 10. Install iTerm2 profile (macOS only)
+# 11. Install iTerm2 profile (macOS only)
 # Copy iterm/Profiles.json to your iTerm2 preferences via:
 # iTerm2 → Settings → Profiles → Import
 ```
@@ -102,7 +106,7 @@ This script automates the complete homelab setup in this order:
 2. **System tools** (build-essential, git, cmake, curl, wget, ffmpeg, nvtop, htop, openssh-server, tailscale, fwupd, zsh)
 3. **ML/AI tools** (Ollama, llama.cpp with CUDA, Hugging Face CLI, llama-swap)
 4. **Docker** (via snap)
-5. **Dotfiles** (mise → Pi → Codex → Herdr → Neovim → Zsh → Git → GitHub CLI → rtk)
+5. **Dotfiles** (mise → Pi → Codex → agy → Herdr → Neovim → Zsh → Git → GitHub CLI → rtk)
 
 Each step is independently skippable via `HOMELAB_SKIP_*` environment variables. See the script source for all available skip options.
 
@@ -114,6 +118,7 @@ Each step is independently skippable via `HOMELAB_SKIP_*` environment variables.
 | `gh/` | ✅ (Homebrew) | ✅ (Snap) |
 | `pi/` | ✅ (official installer via mise Node.js) | ✅ (official installer via mise Node.js) |
 | `codex/` | ✅ (official installer) | ✅ (official installer) |
+| `agy/` | ✅ (official installer) | ✅ (official installer) |
 | `rtk/` | ✅ (official installer) | ✅ (official installer) |
 | `zsh/` | ✅ | ✅ |
 | `nvim/` | ✅ (Homebrew) | ✅ (Snap + APT + pnpm) |
@@ -186,6 +191,12 @@ Installs with the [official Codex installer](https://chatgpt.com/codex/install.s
 to `~/.local/bin/codex`. The wrapper keeps `~/.local/bin` on `PATH`, so the
 official installer does not modify the tracked Zsh profile; `zsh/.zshenv`
 already adds that directory. Run `codex` to authenticate.
+
+### agy (Antigravity CLI)
+
+Installs with the [official Antigravity CLI installer](https://antigravity.google/docs/cli/install/)
+to `~/.local/bin/agy`. The wrapper ensures `agy` is placed in `~/.local/bin`, which
+is already managed by `zsh/.zshenv`. Run `agy setup` to configure.
 
 ### Zsh
 

@@ -113,7 +113,26 @@ install_codex() {
 }
 
 # ============================================================
-# 7. Dotfiles: herdr
+# 7. Dotfiles: agy (Antigravity CLI)
+# ============================================================
+install_agy() {
+  if [ "${HOMELAB_SKIP_DOTFILES:-0}" = 1 ]; then
+    return
+  fi
+
+  agy_dir="$script_dir/../agy"
+  if [ -d "$agy_dir" ] && [ -x "$agy_dir/install.sh" ]; then
+    printf '%s\n' "Running agy/install.sh..."
+    sh "$agy_dir/install.sh"
+  elif [ -x "$home/.local/bin/agy" ]; then
+    printf '%s\n' "agy already installed: $home/.local/bin/agy"
+  else
+    printf '%s\n' "Warning: agy/install.sh not found and agy not installed."
+  fi
+}
+
+# ============================================================
+# 8. Dotfiles: herdr
 # ============================================================
 install_herdr() {
   if [ "${HOMELAB_SKIP_DOTFILES:-0}" = 1 ]; then
@@ -132,7 +151,7 @@ install_herdr() {
 }
 
 # ============================================================
-# 8. Dotfiles: nvim (requires mise + apt packages)
+# 9. Dotfiles: nvim (requires mise + apt packages)
 # ============================================================
 install_nvim() {
   if [ "${HOMELAB_SKIP_DOTFILES:-0}" = 1 ]; then
@@ -151,7 +170,7 @@ install_nvim() {
 }
 
 # ============================================================
-# 9. Dotfiles: zsh (requires zsh + git + mise)
+# 10. Dotfiles: zsh (requires zsh + git + mise)
 # ============================================================
 install_zsh() {
   if [ "${HOMELAB_SKIP_DOTFILES:-0}" = 1 ]; then
@@ -170,7 +189,7 @@ install_zsh() {
 }
 
 # ============================================================
-# 10. Dotfiles: git (config symlinks only)
+# 11. Dotfiles: git (config symlinks only)
 # ============================================================
 install_git() {
   if [ "${HOMELAB_SKIP_DOTFILES:-0}" = 1 ]; then
@@ -189,7 +208,7 @@ install_git() {
 }
 
 # ============================================================
-# 11. Dotfiles: GitHub CLI
+# 12. Dotfiles: GitHub CLI
 # ============================================================
 install_gh() {
   if [ "${HOMELAB_SKIP_DOTFILES:-0}" = 1 ]; then
@@ -208,7 +227,7 @@ install_gh() {
 }
 
 # ============================================================
-# 12. Dotfiles: rtk
+# 13. Dotfiles: rtk
 # ============================================================
 install_rtk() {
   if [ "${HOMELAB_SKIP_DOTFILES:-0}" = 1 ]; then
@@ -227,7 +246,7 @@ install_rtk() {
 }
 
 # ============================================================
-# 13. Ollama
+# 14. Ollama
 # ============================================================
 install_ollama() {
   if [ "${HOMELAB_SKIP_OLLAMA:-0}" = 1 ]; then
@@ -245,7 +264,7 @@ install_ollama() {
 }
 
 # ============================================================
-# 14. llama.cpp (CUDA build)
+# 15. llama.cpp (CUDA build)
 # ============================================================
 install_llama_cpp() {
   if [ "${HOMELAB_SKIP_LLAMA_CPP:-0}" = 1 ]; then
@@ -271,7 +290,7 @@ install_llama_cpp() {
 }
 
 # ============================================================
-# 15. Hugging Face CLI
+# 16. Hugging Face CLI
 # ============================================================
 install_hf_cli() {
   if [ "${HOMELAB_SKIP_HF_CLI:-0}" = 1 ]; then
@@ -289,7 +308,7 @@ install_hf_cli() {
 }
 
 # ============================================================
-# 16. llama-swap
+# 17. llama-swap
 # ============================================================
 install_llama_swap() {
   if [ "${HOMELAB_SKIP_LLAMA_SWAP:-0}" = 1 ]; then
@@ -311,7 +330,7 @@ install_llama_swap() {
 }
 
 # ============================================================
-# 17. Docker (snap)
+# 18. Docker (snap)
 # ============================================================
 install_docker() {
   if [ "${HOMELAB_SKIP_DOCKER:-0}" = 1 ]; then
@@ -354,10 +373,11 @@ main() {
   install_llama_swap
   install_docker
 
-  # Dotfiles (order: mise → pi → codex → herdr → nvim → zsh → git → gh → rtk)
+  # Dotfiles (order: mise → pi → codex → agy → herdr → nvim → zsh → git → gh → rtk)
   install_mise
   install_pi
   install_codex
+  install_agy
   install_herdr
   install_nvim
   install_zsh
