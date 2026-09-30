@@ -9,8 +9,7 @@ export EDITOR=nvim
 export BUNDLER_EDITOR="$EDITOR"
 export DISABLE_SPRING=true
 
-() {
-  local zsh_dotfiles_dir="${${(%):-%N}:A:h}"
-  local private_vars="$zsh_dotfiles_dir/.private_vars"
-  [[ -r "$private_vars" ]] && source "$private_vars"
-}
+# Load private environment variables regardless of the current working directory.
+private_vars="${${(%):-%N}:A:h}/.private_vars"
+[[ -r "$private_vars" ]] && source "$private_vars"
+unset private_vars
