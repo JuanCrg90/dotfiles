@@ -140,16 +140,23 @@ The `tree-sitter` binary is required by Neovim's native LSP and language support
 
 #### Remote Clipboard
 
-macOS Neovim always uses its native system clipboard provider. On remote Linux
-SSH sessions and Linux Herdr panes, remote yanks use Neovim's built-in OSC 52
-copy callback, so they reach the clipboard of the terminal running on the local
-machine. This requires a local terminal emulator that supports OSC 52 clipboard
-writes and permits terminal applications to access the clipboard.
+Local Neovim sessions use the native system clipboard provider, including in
+local Herdr panes. SSH sessions are treated as remote on any operating system
+(including macOS): remote yanks use Neovim's OSC 52 copy callback, subject to
+the local terminal and any intervening bridge supporting OSC 52 clipboard
+writes. `HERDR_PANE_ID` alone does not imply a remote session. SSH environment
+markers inherited by a local shell still classify it as remote; the config does
+not try to infer whether those markers are stale.
 
-Remote `p` deliberately uses Neovim's internal register, avoiding an OSC 52
-clipboard-read query that may time out through the Herdr bridge. To paste from
-the local system clipboard into a remote pane, use the terminal's normal paste
-shortcut (for example, <kbd>Cmd</kbd>+<kbd>V</kbd> in iTerm2).
+Remote `p` and `P` deliberately use Neovim's internal register, avoiding a
+clipboard-read query that may time out or be unsupported. Remote clipboard
+pasting is therefore not provided by this configuration; use the terminal's
+normal paste shortcut (for example, <kbd>Cmd</kbd>+<kbd>V</kbd> in iTerm2).
+Herdr 0.9.3 does not relay OSC 52 clipboard reads (issues #3136 and #4509 in
+`herdrdev/herdr`; feature discussion #579). Universal remote `p` needs an
+upstream read relay with clipboard-access permissions and response routing to
+the requesting pane, or a separate authenticated clipboard bridge. Do not
+simply enable OSC 52 paste: unanswered reads can stall Neovim for 10 seconds.
 
 Verify the write path from a remote Herdr pane before relying on it:
 

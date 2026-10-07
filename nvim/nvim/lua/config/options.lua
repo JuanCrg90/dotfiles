@@ -6,11 +6,12 @@
 -- OSC 52 copy callback. Do not configure the provider for paste: Herdr's
 -- remote bridge may not answer OSC 52 read queries.
 -- Source: https://neovim.io/doc/user/provider.html#clipboard-osc52
--- Works on any host (including macOS): yanks go to the clipboard of the
--- machine running the terminal, over the SSH/Herdr channel.
+-- SSH environment markers indicate a remote session on any host, including
+-- macOS. HERDR_PANE_ID alone does not: a local Herdr pane keeps native access.
+-- Inherited SSH markers can still classify a local shell as remote; do not
+-- guess based on the pane ID because SSH inside Herdr is genuinely remote.
 local remote_session = vim.env.SSH_CONNECTION ~= nil
   or vim.env.SSH_TTY ~= nil
-  or vim.env.HERDR_PANE_ID ~= nil
 
 if remote_session then
   local osc52_copy = require("vim.ui.clipboard.osc52").copy("+")
