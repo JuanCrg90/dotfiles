@@ -28,6 +28,7 @@ dotfiles/
 ├── herdr/            # Herdr terminal multiplexer config
 ├── mise/             # mise environment manager installer
 ├── iterm/            # iTerm2 portable profile + Monokai theme
+├── ghostty/          # Ghostty config + standalone setup script
 ├── uhk/              # Ultimate Hacking Keyboard config
 ├── homelab/          # Homelab recovery script (NVIDIA, Ollama, Docker, etc.)
 └── README.md         # This file
@@ -244,6 +245,35 @@ Symlinks `~/.config/herdr/config.toml` from the repo.
 
 Exports a portable `Default` profile excluding machine-specific settings (working directories, bound hosts, sessions). Import manually via iTerm2 preferences.
 
+### Ghostty (Pop!_OS)
+
+Install Ghostty if needed and link its tracked configuration:
+
+```sh
+sh ~/.dotfiles/ghostty/install.sh
+```
+
+This standalone script is not part of the all-in-one installer. If `ghostty`
+is not on `PATH`, it runs `sudo snap install ghostty --classic` (requires Snap
+and sudo privileges). Ensure `/snap/bin` is on `PATH`. Config changes happen
+only after Ghostty is available.
+
+It symlinks `ghostty/config.ghostty` to
+`${XDG_CONFIG_HOME:-$HOME/.config}/ghostty/config.ghostty` and is safe to rerun.
+Existing files or foreign symlinks at either `ghostty/config.ghostty` or the
+legacy `ghostty/config` are moved to unique `<filename>.backup.XXXXXX` paths
+alongside the originals, preserving relative symlink targets. The script prints
+each backup path and refuses to replace directories. Rerunning with Ghostty
+available and the correct symlink neither reinstalls nor creates another backup.
+Restart Ghostty to apply.
+
+- **Ctrl+V:** Paste from the system clipboard (including Control mapped to Caps Lock).
+- **Ctrl+Shift+V:** Still pastes; **Ctrl+C** remains interrupt.
+- **Tradeoff:** Ctrl+V no longer reaches terminal applications, including the
+  shell's literal-next-character input and Neovim's visual-block shortcut.
+
+Only the paste binding is customized; Ghostty's other defaults are retained.
+
 ### Neovim Plugin Lock
 
 `nvim/nvim/lazy-lock.json` is the shared source of truth for plugin commits.
@@ -259,6 +289,10 @@ Run the installer regressions after changing shell scripts:
 ```sh
 sh tests/installers.sh
 sh tests/zsh.sh
+sh tests/ghostty.sh
+
+# If Ghostty is installed:
+ghostty +validate-config --config-file="$PWD/ghostty/config.ghostty"
 ```
 
 ## Safety Features
@@ -266,7 +300,7 @@ sh tests/zsh.sh
 All installers include:
 
 - **Idempotency:** Safe to run multiple times
-- **Config preservation:** Neovim and Herdr back up replaced configs; Zsh refuses to replace existing files or foreign symlinks
+- **Config preservation:** Neovim, Herdr, and Ghostty back up replaced configs; Zsh refuses to replace existing files or foreign symlinks
 - **Symlink validation:** Refuses to overwrite symlinks that point elsewhere
 - **Version checks:** Neovim requires ≥0.11.2
 - **POSIX compliance:** Scripts use `#!/bin/sh` for maximum compatibility
